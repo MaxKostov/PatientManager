@@ -1,4 +1,4 @@
-# PatientManager Repository Description
+# PatientManager
 
 **PatientManager** is a robust application for managing patient care in a sanatorium. It allows users to register patients, discharge them, prescribe medications, and schedule procedures. The system supports role-based access, ensuring secure interactions, and includes a pharmacy module to efficiently track medication inventory.
 
