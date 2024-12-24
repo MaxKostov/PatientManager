@@ -32,6 +32,15 @@ public class PatientService {
         return null;
     }
 
+    public Patient getPatientByPassportId(String passportId) {
+        Optional<Patient> optionalPatient = Optional.ofNullable(patientRepo.findByPassportID(passportId));
+        if (optionalPatient.isEmpty()) {
+            log.info("Patient with id: " + passportId + " not found");
+            return null;
+        }
+        return optionalPatient.get();
+    }
+
 
     public Patient savePatient(Patient patient) {
         PatientStayPeriod patientStayPeriod = new PatientStayPeriod();
@@ -59,6 +68,7 @@ public class PatientService {
         existingPatient.setPassportID(patient.getPassportID());
         existingPatient.setAddress(patient.getAddress());
         existingPatient.setBirthDate(patient.getBirthDate());
+        existingPatient.setTravelVoucher(patient.getTravelVoucher());
         Patient updatedPatient = patientRepo.save(existingPatient);
         log.info("Patient updated: " + updatedPatient);
         return updatedPatient;

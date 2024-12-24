@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 240px;
+    }
+
+    .details-container {
+      width: 60%;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .details-container:first-of-type {
+      margin-top: 300px;
+    }
+    .details-container h2 {
+      margin-bottom: 20px;
+      color: #3b5320;
+    }
+
+    .details-container div {
+      margin-bottom: 15px;
+    }
+
+    .details-container label {
+      font-weight: bold;
+      color: #3b5320;
+    }
+
+    .details-container p {
+      margin: 0;
+      padding-left: 10px;
+      border-left: 2px solid #3b5320;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #3b5320;
+      color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3b5320;
+      color: white;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #3B5320FF;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Company Logo">
+</header>
+<div class="details-container">
+  <h2>Patient Details</h2>
+  <div>
+    <label>Name:</label>
+    <p th:text="${patient.name}">Name of the patient</p>
+  </div>
+  <div>
+    <label>Surname:</label>
+    <p th:text="${patient.surname}">Surname of the patient</p>
+  </div>
+  <div>
+    <label>Passport ID:</label>
+    <p th:text="${patient.passportID}">Passport ID of the patient</p>
+  </div>
+  <div>
+    <label>Birth Date:</label>
+    <p th:text="${patient.birthDate}">Birth Date of the patient</p>
+  </div>
+  <div>
+    <label>Address:</label>
+    <p th:text="${patient.address}">Address of the patient</p>
+  </div>
+  <div>
+    <label>Travel Voucher:</label>
+    <p th:text="${patient.travelVoucher}">Travel Voucher type</p>
+  </div>
+</div>
+
+<div class="details-container">
+  <h2>Stay Periods</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Admission Date</th>
+      <th>Discharge Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="period : ${patient.periodList}">
+      <td th:text="${period.admissionDate}">01-01-2024</td>
+      <td th:text="${period.dischargeDate}">01-10-2024</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<button onclick="window.location.href='/register'">Go Back</button>
+
+</body>
+</html>

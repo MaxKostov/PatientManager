@@ -1,9 +1,11 @@
 package patientmanager.objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -17,11 +19,24 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Surname is required")
     private String surname;
+
+    @NotBlank(message = "Passport ID is required")
     private String passportID;
+
+    @Past(message = "Birthdate must be in the past")
     private LocalDate birthDate;
+
+    @NotBlank(message = "Address is required")
     private String address;
+
+    @NotNull(message = "Travel voucher is required")
+    private  TravelVoucher travelVoucher;
 
     @OneToMany(mappedBy = "patient")
     private List<PatientStayPeriod> periodList = new LinkedList<>();
@@ -37,5 +52,6 @@ public class Patient {
     public PatientStayPeriod getLastPeriod() {
         return periodList.getLast();
     }
+
     public Patient(){}
 }

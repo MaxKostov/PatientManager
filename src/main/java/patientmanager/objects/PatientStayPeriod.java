@@ -12,10 +12,13 @@ public class PatientStayPeriod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
+
     private LocalDate admissionDate;
+
     private LocalDate dischargeDate;
 
     public  PatientStayPeriod() {
