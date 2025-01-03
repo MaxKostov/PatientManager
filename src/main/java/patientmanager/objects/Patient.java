@@ -2,7 +2,6 @@ package patientmanager.objects;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +9,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+
 
 @AllArgsConstructor
 @Data
@@ -35,23 +35,31 @@ public class Patient {
     @NotBlank(message = "Address is required")
     private String address;
 
-    @NotNull(message = "Travel voucher is required")
-    private  TravelVoucher travelVoucher;
-
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<PatientStayPeriod> periodList = new LinkedList<>();
 
-    public void addPeriod(PatientStayPeriod period) {
-        if (!periodList.isEmpty() && periodList.get(periodList.size() - 1).getDischargeDate() == null) {
+    public boolean addPeriod(PatientStayPeriod period) {
+        if ((periodList.isEmpty() || periodList.getLast().getDischargeDate() != null)) {
+            period.setPatient(this);
             periodList.add(period);
+            return true;
         } else {
             System.out.println("This patient has not been discharged yet");
+            return false;
         }
     }
 
     public PatientStayPeriod getLastPeriod() {
-        return periodList.getLast();
+        return periodList.isEmpty() ? new PatientStayPeriod() : periodList.getLast();
     }
+
+    @Override
+    public String toString() {
+        return "Patient [id=" + id + ", name=" + name + ", surname=" + surname +
+                ", passportID=" + passportID + ", birthDate=" + birthDate + ", address=" + address + "]";
+    }
+
+
 
     public Patient(){}
 }

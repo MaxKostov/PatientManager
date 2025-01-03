@@ -1,6 +1,7 @@
 package patientmanager.objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -21,7 +22,17 @@ public class PatientStayPeriod {
 
     private LocalDate dischargeDate;
 
+    @NotNull(message = "Travel voucher is required")
+    private  TravelVoucher travelVoucher;
+
     public  PatientStayPeriod() {
         admissionDate = LocalDate.now();
     }
+
+    @Override
+    public String toString() {
+        return "PatientStayPeriod [id=" + id + ", admissionDate=" + admissionDate +
+                ", dischargeDate=" + dischargeDate + ", travelVoucher=" + travelVoucher + "]";
+    }
+
 }

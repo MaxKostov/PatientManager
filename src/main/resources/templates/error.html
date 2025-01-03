@@ -4,10 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+        }
+
+        header img {
+            height: 120px;
+        }
+
+        .error-container {
+            width: 60%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .error-container h1 {
+            color: #b71c1c;
+            margin-bottom: 20px;
+        }
+
+        .error-container p {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #3b5320;
+            color: white;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #3B5320FF;
+        }
+    </style>
 </head>
 <body>
-<h1>Access Denied</h1>
-<p>You cannot access this page directly.</p>
-<a href="/register">Go back to the homepage</a>
+<header>
+    <img src="/images/logo.png" alt="Company Logo">
+</header>
+<div class="error-container">
+    <h1>Access Denied</h1>
+    <p th:text="${errorMessage ?: 'You cannot access this page directly.'}">You cannot access this page directly.</p>
+    <p th:if="${errorDetails}" th:text="'Details: ' + ${errorDetails}"></p>
+    <button onclick="window.location.href='/register'">Go Back</button>
+</div>
 </body>
 </html>

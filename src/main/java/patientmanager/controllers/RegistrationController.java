@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import patientmanager.objects.Patient;
+import patientmanager.objects.PatientStayPeriod;
 import patientmanager.services.PatientService;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/register")
@@ -69,7 +72,11 @@ public class RegistrationController {
 
 
     @GetMapping("/error")
-    public String errorPage() {
+    public String errorPage(HttpSession session, Model model) {
+        model.addAttribute("errorMessage", session.getAttribute("errorMessage"));
+        if (session.getAttribute("errorDetails") != null) {
+            model.addAttribute("errorDetails", session.getAttribute("errorDetails"));
+        }
         return "error";
     }
 
@@ -99,25 +106,45 @@ public class RegistrationController {
         if (passportID == null || !canAccess) {
             return "redirect:/register/error";
         }
-        session.removeAttribute("passportID");
+
+        Patient optionalPatient = patientService.getPatientByPassportId(passportID);
+        if (optionalPatient != null) {
+            session.setAttribute("patient", optionalPatient);
+            if (optionalPatient.getLastPeriod().getDischargeDate() == null) {
+                session.setAttribute("errorMessage", "This patient has not been discharged yet");
+                return "redirect:/register/error";
+            }
+            return "redirect:/register/addStayPeriod";
+        }
+
         session.removeAttribute("canAccessForm");
+        session.removeAttribute("passportID");
         model.addAttribute("passportID", passportID);
         Patient patient = new Patient();
+        PatientStayPeriod patientStayPeriod = new PatientStayPeriod();
+
         model.addAttribute("patient", patient);
+        model.addAttribute("stayPeriod", patientStayPeriod);
         return "patientForm";
     }
 
     @PostMapping("/submitPatient")
-    public String handlePatientForm(@Valid @ModelAttribute("patient") Patient patient, BindingResult bindingResult, Model model) {
+    public String handlePatientForm(@Valid @ModelAttribute("patient") Patient patient,
+                                    @Valid @ModelAttribute("stayPeriod") PatientStayPeriod stayPeriod,
+                                    BindingResult bindingResult,
+                                    Model model) {
         System.out.println("Received patient data: " + patient);
+        System.out.println("Received travel voucher: " + stayPeriod.getTravelVoucher());
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
             model.addAttribute("name", patient.getName());
             model.addAttribute("surname", patient.getSurname());
             model.addAttribute("address", patient.getAddress());
             model.addAttribute("passportID", patient.getPassportID());
-            model.addAttribute("travelVoucher", patient.getTravelVoucher());
+            model.addAttribute("travelVoucher", stayPeriod.getTravelVoucher());
             return "patientForm";
         }
+        patient.addPeriod(stayPeriod);
         patientService.savePatient(patient);
         return "redirect:/register";
     }
@@ -132,7 +159,8 @@ public class RegistrationController {
             model.addAttribute("patient", patient);
             return "patientDetails";
         } else {
-            return "redirect:/error";
+            session.setAttribute("errorMessage", "Patient with id: " + passportID + " not found");
+            return "redirect:/register/error";
         }
     }
 
@@ -143,7 +171,39 @@ public class RegistrationController {
         if (passportID == null || !canAccess) {
             return "redirect:/register/error";
         }
-        patientService.dischargePatient(passportID);
+        if (patientService.dischargePatient(passportID) == null) {
+            session.setAttribute("errorMessage", "There are no stay periods available");
+            return "redirect:/register/error";
+        }
         return "redirect:/register/patient";
+    }
+
+    @GetMapping("/addStayPeriod")
+    public String addStayPeriod(HttpSession session, Model model) {
+        Boolean canAccess = (Boolean) session.getAttribute("canAccessForm");
+        Patient patient = (Patient) session.getAttribute("patient");
+        if (canAccess == null || !canAccess) {
+            return "redirect:/register/error";
+        }
+        PatientStayPeriod patientStayPeriod = new PatientStayPeriod();
+        model.addAttribute("localDate", LocalDate.now());
+        model.addAttribute("patient", patient);
+        model.addAttribute("stayPeriod", patientStayPeriod);
+        session.removeAttribute("canAccessForm");
+
+        return "addStayPeriod";
+    }
+
+    @PostMapping("/submitNewStayPeriod")
+    public String submitStayPeriod(@Valid @ModelAttribute("stayPeriod") PatientStayPeriod stayPeriod,
+                                   HttpSession session,
+                                   Model model) {
+        Patient patient = (Patient) session.getAttribute("patient");
+        System.out.println("Received patient data: " + patient);
+        System.out.println("Received travel voucher: " + stayPeriod.getTravelVoucher());
+        Patient servicePatient = patientService.getPatientByPassportId(patient.getPassportID());
+        patientService.addStayPeriod(servicePatient, stayPeriod);
+
+        return "redirect:/register";
     }
 }

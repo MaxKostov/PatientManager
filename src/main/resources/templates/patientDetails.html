@@ -119,10 +119,6 @@
     <label>Address:</label>
     <p th:text="${patient.address}">Address of the patient</p>
   </div>
-  <div>
-    <label>Travel Voucher:</label>
-    <p th:text="${patient.travelVoucher}">Travel Voucher type</p>
-  </div>
 </div>
 
 <div class="details-container">
@@ -132,12 +128,14 @@
     <tr>
       <th>Admission Date</th>
       <th>Discharge Date</th>
+      <th>Travel Voucher</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="period : ${patient.periodList}">
       <td th:text="${period.admissionDate}">01-01-2024</td>
       <td th:text="${period.dischargeDate}">01-10-2024</td>
+      <td th:text="${period.travelVoucher}">Travel voucher</td>
     </tr>
     </tbody>
   </table>

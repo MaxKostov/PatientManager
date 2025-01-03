@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding Stay Period</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 240px;
+    }
+
+    .form-container {
+      width: 60%;
+      background: white;
+      margin-top: 200px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .form-container select {
+      padding: 10px;
+      font-size: 14px;
+      width: 270px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .form-container select:focus {
+      outline: none;
+      border-color: #3b5320;
+      box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #3b5320;
+    }
+
+    .form-container div {
+      margin-bottom: 15px;
+    }
+
+    .form-container label {
+      font-weight: bold;
+      color: #3b5320;
+    }
+
+    .form-container p {
+      padding-left: 10px;
+      border-left: 2px solid #3b5320;
+    }
+
+    .form-container select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3b5320;
+      color: white;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #3B5320FF;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Company Logo">
+</header>
+
+<div class="form-container">
+  <h2>Adding Stay Period</h2>
+
+  <form action="/register/submitNewStayPeriod" method="post">
+    <div>
+      <label>Name:</label>
+      <p th:text="${patient.name}">Name</p>
+    </div>
+
+    <div>
+      <label>Surname:</label>
+      <p th:text="${patient.surname}">Surname</p>
+    </div>
+
+    <div>
+      <label>Passport ID:</label>
+      <p th:text="${patient.passportID}">Passport ID</p>
+    </div>
+
+    <div>
+      <label>Current Date:</label>
+      <p th:text="${#temporals.format(localDate, 'dd-MM-yyyy')}">date</p>
+    </div>
+
+    <div>
+      <label for="travelVoucher">Travel Voucher:</label>
+      <select id="travelVoucher" name="travelVoucher" required>
+        <option value="" th:if="${stayPeriod.travelVoucher == null}" selected>-- Select a voucher --</option>
+        <option th:each="voucher : ${T(patientmanager.objects.TravelVoucher).values()}"
+                th:value="${voucher}"
+                th:text="${voucher}"
+                th:selected="${voucher == stayPeriod.travelVoucher}"></option>
+      </select>
+    </div>
+
+    <button type="submit">Save Stay Period</button>
+  </form>
+</div>
+
+</body>
+</html>

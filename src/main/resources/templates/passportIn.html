@@ -73,9 +73,13 @@
 <h2 th:text="${displayText}">Default text if no message</h2>
 <form action="/register/submit" method="post">
   <label>
-    <input type="text" name="input" placeholder="Enter passport ID">
+    <input type="text" name="input" placeholder="Enter passport ID"
+           pattern="[A-Z][0-9]{13}"
+           title="Must start with an uppercase letter followed by 13 digits"
+           required>
   </label>
   <button type="submit">Submit</button>
 </form>
+
 </body>
 </html>

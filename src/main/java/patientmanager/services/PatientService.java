@@ -43,9 +43,7 @@ public class PatientService {
 
 
     public Patient savePatient(Patient patient) {
-        PatientStayPeriod patientStayPeriod = new PatientStayPeriod();
-        patientStayPeriod.setPatient(patient);
-        patient.addPeriod(patientStayPeriod);
+        PatientStayPeriod patientStayPeriod = patient.getLastPeriod();
 
         Patient savedPatient = patientRepo.save(patient);
         patientStayPeriodRepo.save(patientStayPeriod);
@@ -68,7 +66,6 @@ public class PatientService {
         existingPatient.setPassportID(patient.getPassportID());
         existingPatient.setAddress(patient.getAddress());
         existingPatient.setBirthDate(patient.getBirthDate());
-        existingPatient.setTravelVoucher(patient.getTravelVoucher());
         Patient updatedPatient = patientRepo.save(existingPatient);
         log.info("Patient updated: " + updatedPatient);
         return updatedPatient;
@@ -86,7 +83,7 @@ public class PatientService {
 
         if (lastPeriod == null || lastPeriod.getDischargeDate() != null) {
             log.info("No active stay period found for patient with passport id: " + passportID);
-            return existingPatient;
+            return null;
         }
 
         lastPeriod.setDischargeDate(LocalDate.now());
@@ -96,6 +93,14 @@ public class PatientService {
         return existingPatient;
     }
 
+    public Patient addStayPeriod(Patient patient, PatientStayPeriod patientStayPeriod) {
+        if (patient.addPeriod(patientStayPeriod)) {
+            System.out.println(patientStayPeriodRepo.save(patientStayPeriod));
+            return patient;
+        } else {
+            return null;
+        }
+    }
 
     public void deletePatient(long id) {
         patientRepo.deleteById(id);
