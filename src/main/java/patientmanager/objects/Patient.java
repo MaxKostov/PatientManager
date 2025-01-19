@@ -1,5 +1,7 @@
 package patientmanager.objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -36,6 +38,7 @@ public class Patient {
     private String address;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<PatientStayPeriod> periodList = new LinkedList<>();
 
     public boolean addPeriod(PatientStayPeriod period) {
