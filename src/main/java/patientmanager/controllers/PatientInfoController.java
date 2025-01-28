@@ -30,6 +30,7 @@ public class PatientInfoController {
     @GetMapping
     public String getPatientId(Model model) {
         model.addAttribute("type", "patientInfo");
+        model.addAttribute("displayText", "Search for a patient by passport ID: ");
         return "passportIn";
     }
 
@@ -53,5 +54,25 @@ public class PatientInfoController {
         model.addAttribute("patient", patient);
         model.addAttribute("periodList", periodList.reversed());
         return "fullPatientInfo";
+    }
+
+    @PostMapping("/submit-initial-diagnosis")
+    public String submitInitialDiagnosis(@RequestParam("initialDiagnosis") String initialDiagnosis, HttpSession session, Model model) {
+        System.out.println("Initial Diagnosis: " + initialDiagnosis);
+        String passportID = (String) session.getAttribute("passportID");
+        patientStayPeriodService.addInitialDiagnosis(initialDiagnosis, passportID);
+
+        model.addAttribute("message", "Initial diagnosis submitted successfully!");
+        return "redirect:info";
+    }
+
+    @PostMapping("/submit-discharge-summary")
+    public String submitDischargeSummary(@RequestParam("dischargeSummary") String dischargeSummary, HttpSession session, Model model) {
+        System.out.println("Discharge Summary: " + dischargeSummary);
+        String passportID = (String) session.getAttribute("passportID");
+        patientStayPeriodService.addDischargeSummary(dischargeSummary, passportID);
+
+        model.addAttribute("message", "Discharge summary submitted successfully!");
+        return "redirect:info";
     }
 }

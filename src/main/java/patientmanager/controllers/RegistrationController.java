@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.*;
 import patientmanager.objects.Patient;
 import patientmanager.objects.PatientStayPeriod;
 import patientmanager.services.PatientService;
+import patientmanager.services.PatientStayPeriodService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
     private final PatientService patientService;
+    private final PatientStayPeriodService patientStayPeriodService;
 
-    public RegistrationController(PatientService patientService) {
+    public RegistrationController(PatientService patientService, PatientStayPeriodService patientStayPeriodService) {
         this.patientService = patientService;
+        this.patientStayPeriodService = patientStayPeriodService;
     }
 
     @GetMapping()
@@ -153,10 +157,12 @@ public class RegistrationController {
     public String showPatient(HttpSession session, Model model) {
         String passportID = (String) session.getAttribute("passportID");
         Patient patient = patientService.getPatientByPassportId(passportID);
+        List<PatientStayPeriod> periodList = patientStayPeriodService.showAllPeriods(passportID);
         session.removeAttribute("passportID");
         session.removeAttribute("canAccessForm");
         if (patient != null) {
             model.addAttribute("patient", patient);
+            model.addAttribute("periodList", periodList.reversed());
             return "patientDetails";
         } else {
             session.setAttribute("errorMessage", "Patient with id: " + passportID + " not found");

@@ -138,21 +138,26 @@
     <div class="details-container">
         <h2>Current Stay Period</h2>
         <div th:if="${lastPatientStayPeriod != null}">
-            <div>
-                <label>Initial Diagnosis:</label>
-                <textarea th:text="${lastPatientStayPeriod?.medicalInfo?.initialDiagnosis}"></textarea>
-                <button>Submit</button>
-            </div>
-            <div>
-                <label>Discharge Summary:</label>
-                <textarea th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
-                <button>Submit</button>
-            </div>
+            <form th:action="@{/patient/submit-initial-diagnosis}" method="post">
+                <div>
+                    <label>Initial Diagnosis:</label>
+                    <textarea name="initialDiagnosis" th:text="${lastPatientStayPeriod?.medicalInfo?.initialDiagnosis}"></textarea>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <form th:action="@{/patient/submit-discharge-summary}" method="post">
+                <div>
+                    <label>Discharge Summary:</label>
+                    <textarea name="dischargeSummary" th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
         </div>
         <div th:if="${lastPatientStayPeriod == null}" style="text-align: center; color: gray;">
             <p>No current stay period available.</p>
         </div>
     </div>
+
 
 </div>
 
