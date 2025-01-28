@@ -71,7 +71,8 @@
 </header>
 
 <h2 th:text="${displayText}">Default text if no message</h2>
-<form action="/register/submit" method="post">
+<form id="dynamicForm" method="post">
+  <input type="hidden" id="sessionType" name="sessionType" th:value="${type}" />
   <label>
     <input type="text" name="input" placeholder="Enter passport ID"
            pattern="[A-Z][0-9]{13}"
@@ -80,6 +81,23 @@
   </label>
   <button type="submit">Submit</button>
 </form>
+
+<script>
+  document.getElementById('dynamicForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('dynamicForm');
+    const type = document.getElementById('sessionType').value;
+
+    if (type === 'patientInfo') {
+      form.action = '/patient/submit';
+    } else {
+      form.action = '/register/submit';
+    }
+
+    form.submit();
+  });
+</script>
 
 </body>
 </html>
