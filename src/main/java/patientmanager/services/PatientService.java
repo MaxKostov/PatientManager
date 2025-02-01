@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import patientmanager.data.PatientRepo;
 import patientmanager.data.PatientStayPeriodRepo;
-import patientmanager.objects.Patient;
-import patientmanager.objects.PatientStayPeriod;
+import patientmanager.entities.Patient;
+import patientmanager.entities.PatientStayPeriod;
 
 import java.time.LocalDate;
 import java.util.List;

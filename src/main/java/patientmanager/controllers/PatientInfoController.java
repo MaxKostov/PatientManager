@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import patientmanager.objects.Patient;
-import patientmanager.objects.PatientStayPeriod;
+import patientmanager.entities.Patient;
+import patientmanager.entities.PatientStayPeriod;
 import patientmanager.services.PatientService;
 import patientmanager.services.PatientStayPeriodService;
 

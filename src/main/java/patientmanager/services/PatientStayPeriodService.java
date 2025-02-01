@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import patientmanager.data.PatientRepo;
 import patientmanager.data.PatientStayPeriodRepo;
-import patientmanager.objects.MedicalInfo;
-import patientmanager.objects.Patient;
-import patientmanager.objects.PatientStayPeriod;
+import patientmanager.entities.MedicalInfo;
+import patientmanager.entities.Patient;
+import patientmanager.entities.PatientStayPeriod;
 
 import java.util.List;
 

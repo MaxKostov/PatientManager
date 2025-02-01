@@ -1,4 +1,4 @@
-package patientmanager.objects;
+package patientmanager.entities;
 
 public enum TravelVoucher {
     CHILD,

@@ -146,7 +146,7 @@
       <label for="travelVoucher">Travel Voucher:</label>
       <select id="travelVoucher" name="travelVoucher" required>
         <option value="" th:if="${stayPeriod.travelVoucher == null}" selected>-- Select a voucher --</option>
-        <option th:each="voucher : ${T(patientmanager.objects.TravelVoucher).values()}"
+        <option th:each="voucher : ${T(patientmanager.entities.TravelVoucher).values()}"
                 th:value="${voucher}"
                 th:text="${voucher}"
                 th:selected="${voucher == stayPeriod.travelVoucher}"></option>

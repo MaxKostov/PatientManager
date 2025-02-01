@@ -1,14 +1,17 @@
-package patientmanager.objects;
+package patientmanager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "PERIOD")
 public class PatientStayPeriod {
@@ -33,8 +36,17 @@ public class PatientStayPeriod {
     @NotNull(message = "Travel voucher is required")
     private  TravelVoucher travelVoucher;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "medicine_patientStayPeriod", joinColumns = @JoinColumn(name = "patientStayPeriod_id"), inverseJoinColumns = @JoinColumn(name = "medicine_id"))
+    @JsonManagedReference
+    private Set<Medicine> medicines;
+
     public  PatientStayPeriod() {
         admissionDate = LocalDate.now();
+    }
+
+    public boolean addMedicine(Medicine medicine) {
+        return medicines.add(medicine);
     }
 
     @Override

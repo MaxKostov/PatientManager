@@ -1,15 +1,15 @@
-package patientmanager.controllers;
+package patientmanager.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import patientmanager.objects.PatientStayPeriod;
+import patientmanager.entities.PatientStayPeriod;
 import patientmanager.services.PatientStayPeriodService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/patient-stay-period")
+@RequestMapping("/api/patient-stay-period")
 public class PatientStayPeriodController {
 
     private final PatientStayPeriodService patientStayPeriodService;
