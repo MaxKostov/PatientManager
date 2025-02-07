@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicines Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 240px;
+    }
+
+    .details-container {
+      width: 60%;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .details-container:first-of-type {
+      margin-top: 300px;
+    }
+
+    .details-container h2 {
+      margin-bottom: 20px;
+      color: #3b5320;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #3b5320;
+      color: white;
+    }
+
+    button, .action-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3b5320;
+      color: white;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+      margin-right: 5px;
+    }
+
+    button:hover, .action-btn:hover {
+      background-color: #3B5320FF;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    form input, form label {
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    form input[type="text"], form input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 40%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+
+    .modal-content form div {
+      margin-bottom: 15px;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #3b5320;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #2e3d15;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Company Logo">
+</header>
+
+<div class="details-container">
+  <h2>Medicines in Stock</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medicine : ${medicines}">
+      <td th:text="${medicine.name}">Medicine Name</td>
+      <td th:text="${medicine.quantity}">0</td>
+      <td th:text="${medicine.price}">0.00</td>
+      <td>
+        <button class="action-btn"
+                th:data-id="${medicine.id}"
+                th:data-name="${medicine.name}"
+                th:data-quantity="${medicine.quantity}"
+                th:data-price="${medicine.price}"
+                onclick="openEditModal(this)">Edit</button>
+        <form th:action="@{/medicines/delete/{id}(id=${medicine.id})}" method="post" style="display:inline;">
+          <button type="submit" class="action-btn" onclick="return confirm('Are you sure you want to delete this medicine?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="editModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h2>Edit Medicine</h2>
+    <form id="editMedicineForm" method="post">
+      <input type="hidden" name="id" id="medicineId" />
+      <div>
+        <label for="medicineName">Name:</label>
+        <input type="text" id="medicineName" name="name" required />
+      </div>
+      <div>
+        <label for="medicineQuantity">Quantity:</label>
+        <input type="number" id="medicineQuantity" name="quantity" required />
+      </div>
+      <div>
+        <label for="medicinePrice">Price:</label>
+        <input type="number" step="0.01" id="medicinePrice" name="price" required />
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+
+  </div>
+</div>
+
+<div class="details-container">
+  <h2>Add New Medicine</h2>
+  <form th:action="@{/medicines/add}" method="post">
+    <label for="name">Medicine Name:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="0" required />
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" min="0" required />
+
+    <button type="submit">Add Medicine</button>
+  </form>
+</div>
+
+<button onclick="window.location.href='/register'">Go Back</button>
+
+</body>
+</html>
+
+<script>
+  function openEditModal(button) {
+    const id = button.getAttribute('data-id');
+    const name = button.getAttribute('data-name');
+    const quantity = button.getAttribute('data-quantity');
+    const price = button.getAttribute('data-price');
+
+    document.getElementById('medicineId').value = id;
+    document.getElementById('medicineName').value = name;
+    document.getElementById('medicineQuantity').value = quantity;
+    document.getElementById('medicinePrice').value = price;
+
+    const formAction = `/medicines/edit/${id}`;
+    document.getElementById('editMedicineForm').setAttribute('action', formAction);
+
+    document.getElementById('editModal').style.display = 'block';
+  }
+
+
+
+  function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      text-align: center;
+    }
+
+    header img {
+      height: 240px;
+    }
+
+    .form-container select {
+      padding: 10px;
+      font-size: 14px;
+      width: 270px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .form-container select:focus {
+      outline: none;
+      border-color: #3b5320;
+      box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 600px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-container label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-container input {
+      padding: 10px;
+      font-size: 14px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-container input[readonly] {
+      background-color: #e9e9e9;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: -10px;
+      display: block;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #3b5320;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3B5320FF;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Company Logo">
+</header>
+
+<div class="form-container">
+  <h2>Patient Form</h2>
+  <form action="/register/submitPatient" method="post">
+    <label for="name">Name:</label>
+    <span class="error-message" th:if="${#fields.hasErrors('patient.name')}"
+          th:errors="*{patient.name}">Name Error</span>
+    <input type="text" id="name" name="name" placeholder="Enter name"
+           th:value="${patient.name != null and !patient.name.isEmpty() ? patient.name : ''}" required>
+
+    <label for="surname">Surname:</label>
+    <span class="error-message" th:if="${#fields.hasErrors('patient.surname')}"
+          th:errors="*{patient.surname}">Surname Error</span>
+    <input type="text" id="surname" name="surname" placeholder="Enter surname"
+           th:value="${patient.surname != null and !patient.surname.isEmpty() ? patient.surname : ''}" required>
+
+
+    <label for="passportID">Passport ID:</label>
+    <span class="error-message" th:if="${#fields.hasErrors('patient.passportID')}"
+          th:errors="*{patient.passportID}">Passport error</span>
+    <input type="text" id="passportID" name="passportID"
+           th:value="${patient.passportID != null ? patient.passportID : passportID}" readonly>
+
+
+    <label for="birthDate">Birth Date:</label>
+    <span class="error-message" th:if="${#fields.hasErrors('patient.birthDate')}"
+          th:errors="*{patient.birthDate}">Birth date error</span>
+    <input type="date" id="birthDate" name="birthDate"
+           th:value="${patient.birthDate != null ? patient.birthDate : ''}" required>
+
+
+    <label for="address">Address:</label>
+    <span class="error-message" th:if="${#fields.hasErrors('patient.address')}"
+          th:errors="*{patient.address}">Address error</span>
+    <input type="text" id="address" name="address" placeholder="Enter address"
+           th:value="${patient.address != null and !patient.address.isEmpty() ? patient.address : ''}" required>
+
+      <label for="travelVoucher">Travel Voucher:</label>
+      <select id="travelVoucher" name="travelVoucher" required>
+        <option value="" th:if="${stayPeriod.travelVoucher == null}" selected>-- Select a voucher --</option>
+        <option th:each="voucher : ${T(patientmanager.entities.TravelVoucher).values()}"
+                th:value="${voucher}"
+                th:text="${voucher}"
+                th:selected="${voucher == stayPeriod.travelVoucher}"></option>
+      </select>
+
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+</body>
+</html>
