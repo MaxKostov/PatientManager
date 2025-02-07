@@ -76,22 +76,18 @@ public class MedicineService {
     }
 
     @Transactional
-    public String assignMedicineToPatientStayPeriod(Long medicineId, Long patientStayPeriodId) {
+    public String assignMedicineToPatientStayPeriod(Long medicineId, Long patientStayPeriodId, int quantity) {
         Medicine medicine = medicineRepo.findById(medicineId)
                 .orElseThrow(() -> new EntityNotFoundException("Medicine not found with id: " + medicineId));
 
         PatientStayPeriod patientStayPeriod = patientStayPeriodRepo.findById(patientStayPeriodId)
                 .orElseThrow(() -> new EntityNotFoundException("Patient Stay Period not found with id: " + patientStayPeriodId));
 
-        if (!patientStayPeriod.getMedicines().add(medicine)) {
-            throw new IllegalArgumentException("This medicine is already assigned to this patient stay period.");
-        }
-
-        patientStayPeriod.addMedicine(medicine);
-        medicine.getPatientStayPeriodSet().add(patientStayPeriod);
+        patientStayPeriod.prescribeMedicine(medicine, quantity);
 
         patientStayPeriodRepo.save(patientStayPeriod);
         medicineRepo.save(medicine);
+
 
         return "Successfully assigned the medicine to patient stay period.";
     }

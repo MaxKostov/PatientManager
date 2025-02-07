@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -36,17 +37,26 @@ public class PatientStayPeriod {
     @NotNull(message = "Travel voucher is required")
     private  TravelVoucher travelVoucher;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "medicine_patientStayPeriod", joinColumns = @JoinColumn(name = "patientStayPeriod_id"), inverseJoinColumns = @JoinColumn(name = "medicine_id"))
-    @JsonManagedReference
-    private Set<Medicine> medicines;
+    @OneToMany(mappedBy = "patientStayPeriod", cascade = CascadeType.ALL)
+    private List<Prescription> prescriptions = new ArrayList<>();
+
+    public void prescribeMedicine(Medicine medicine, int quantity) {
+        if (medicine.getQuantity() < quantity) {
+            throw new IllegalStateException("Недостаточно лекарства на складе");
+        }
+
+        Prescription prescription = new Prescription();
+        prescription.setMedicine(medicine);
+        prescription.setPatientStayPeriod(this);
+        prescription.setAssignedQuantity(quantity);
+
+        prescriptions.add(prescription);
+        medicine.decreaseStock(quantity);
+    }
+
 
     public  PatientStayPeriod() {
         admissionDate = LocalDate.now();
-    }
-
-    public boolean addMedicine(Medicine medicine) {
-        return medicines.add(medicine);
     }
 
     @Override

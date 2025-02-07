@@ -7,7 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "medicine")
@@ -29,7 +30,14 @@ public class Medicine {
     @NotNull(message = "Price is required")
     private double price;
 
-    @ManyToMany(mappedBy = "medicines", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<PatientStayPeriod> patientStayPeriodSet;
+    @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)
+    private List<Prescription> prescriptions = new ArrayList<>();
+
+    public void decreaseStock(int amount) {
+        if (this.quantity >= amount) {
+            this.quantity -= amount;
+        } else {
+            throw new IllegalStateException("There are no enough stock to decrease quantity");
+        }
+    }
 }

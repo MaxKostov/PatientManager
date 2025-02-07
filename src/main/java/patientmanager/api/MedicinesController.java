@@ -49,7 +49,7 @@ public class MedicinesController {
 
     @PostMapping("/{medicineId}/assign/{patientStayPeriodId}")
     public ResponseEntity<String> assignMedicineToPatientStayPeriod(
-            @PathVariable Long medicineId, @PathVariable Long patientStayPeriodId) {
-        return ResponseEntity.ok(medicineService.assignMedicineToPatientStayPeriod(medicineId, patientStayPeriodId));
+            @PathVariable Long medicineId, @PathVariable Long patientStayPeriodId, @RequestParam int quantity) {
+        return ResponseEntity.ok(medicineService.assignMedicineToPatientStayPeriod(medicineId, patientStayPeriodId, quantity));
     }
 }
