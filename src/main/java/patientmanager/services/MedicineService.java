@@ -12,8 +12,10 @@ import patientmanager.data.MedicineRepo;
 import patientmanager.data.PatientStayPeriodRepo;
 import patientmanager.entities.Medicine;
 import patientmanager.entities.PatientStayPeriod;
+import patientmanager.entities.Prescription;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -69,11 +71,18 @@ public class MedicineService {
 
     @Transactional
     public void updateQuantity(Long medicineId, int quantityChange) {
-        int updatedRows = medicineRepo.updateQuantity(medicineId, quantityChange);
-        if (updatedRows == 0) {
-            throw new IllegalArgumentException("Quantity update failed. Maybe medicine not found or quantity would become negative.");
+        Medicine medicine = medicineRepo.findById(medicineId)
+                .orElseThrow(() -> new EntityNotFoundException("Medicine not found with id: " + medicineId));
+
+        int newQuantity = medicine.getQuantity() + quantityChange;
+        if (newQuantity < 0) {
+            throw new IllegalArgumentException("Not enough medicine in stock to assign.");
         }
+
+        medicine.setQuantity(newQuantity);
+        medicineRepo.save(medicine);
     }
+
 
     @Transactional
     public String assignMedicineToPatientStayPeriod(Long medicineId, Long patientStayPeriodId, int quantity) {
@@ -83,7 +92,16 @@ public class MedicineService {
         PatientStayPeriod patientStayPeriod = patientStayPeriodRepo.findById(patientStayPeriodId)
                 .orElseThrow(() -> new EntityNotFoundException("Patient Stay Period not found with id: " + patientStayPeriodId));
 
-        patientStayPeriod.prescribeMedicine(medicine, quantity);
+        Optional<Prescription> existingPrescription = patientStayPeriod.getPrescriptions().stream()
+                .filter(m -> m.getMedicine().getId() == medicineId)
+                .findFirst();
+        if (existingPrescription.isPresent()) {
+            Prescription patientMedicine = existingPrescription.get();
+            medicine.decreaseStock(quantity);
+            patientMedicine.setAssignedQuantity(patientMedicine.getAssignedQuantity() + quantity);
+        } else {
+            patientStayPeriod.prescribeMedicine(medicine, quantity);
+        }
 
         patientStayPeriodRepo.save(patientStayPeriod);
         medicineRepo.save(medicine);

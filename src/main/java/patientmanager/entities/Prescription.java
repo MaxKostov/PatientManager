@@ -25,5 +25,5 @@ public class Prescription {
     @JsonIgnore
     private PatientStayPeriod patientStayPeriod;
 
-    private int assignedQuantity;;
+    private int assignedQuantity;
 }

@@ -152,6 +152,32 @@
                     <button type="submit">Submit</button>
                 </div>
             </form>
+            <div>
+                <label>Medicines:</label>
+                <ul>
+                    <li th:each="prescription : ${lastPatientStayPeriod.prescriptions}">
+                        <span th:text="${prescription.medicine.name}"></span> -
+                        <span th:text="${prescription.assignedQuantity}"></span> units
+                    </li>
+                </ul>
+
+                <h4>Add Medicine</h4>
+                <form th:action="@{/patient/submit-medicines}" method="post">
+                    <label for="medicine">Select Medicine:</label>
+                    <select name="medicineId" id="medicine">
+                        <option th:each="medicine : ${medicines}"
+                                th:value="${medicine.id}"
+                                th:text="${medicine.name + ' (' + medicine.quantity + ' in stock)'}">
+                        </option>
+                    </select>
+
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" id="quantity" min="1" required />
+
+                    <button type="submit">Add Medicine</button>
+                </form>
+            </div>
+
         </div>
         <div th:if="${lastPatientStayPeriod == null}" style="text-align: center; color: gray;">
             <p>No current stay period available.</p>

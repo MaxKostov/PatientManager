@@ -42,7 +42,7 @@ public class PatientStayPeriod {
 
     public void prescribeMedicine(Medicine medicine, int quantity) {
         if (medicine.getQuantity() < quantity) {
-            throw new IllegalStateException("Недостаточно лекарства на складе");
+            throw new IllegalStateException("There are less than quantity");
         }
 
         Prescription prescription = new Prescription();
