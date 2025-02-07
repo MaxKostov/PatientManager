@@ -17,8 +17,8 @@ public class MedicinesController {
     }
 
     @PostMapping
-    public ResponseEntity<Medicine> createMedicine(@RequestBody Medicine medicine) {
-        return ResponseEntity.ok(medicineService.createMedicine(medicine));
+    public ResponseEntity<Medicine> createMedicine(@RequestParam String name, @RequestParam int quantity, @RequestParam double price) {
+        return ResponseEntity.ok(medicineService.createMedicine(name, quantity, price));
     }
 
     @PutMapping

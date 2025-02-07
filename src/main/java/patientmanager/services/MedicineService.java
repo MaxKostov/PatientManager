@@ -30,8 +30,20 @@ public class MedicineService {
         this.patientStayPeriodRepo = patientStayPeriodRepo;
     }
 
-    public Medicine createMedicine(Medicine medicine) {
-        return medicineRepo.save(medicine);
+    public Medicine createMedicine(String name, int quantity, double price) {
+        Medicine medicine = new Medicine();
+        medicine.setName(name);
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
+
+        medicine.setQuantity(quantity);
+        medicine.setPrice(price);
+        medicineRepo.save(medicine);
+        return medicine;
     }
 
     public Medicine updateMedicine(Medicine medicine) {
