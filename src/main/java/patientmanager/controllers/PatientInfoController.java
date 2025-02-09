@@ -13,7 +13,7 @@ import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
 import patientmanager.services.MedicineService;
 import patientmanager.services.PatientService;
-import patientmanager.services.PatientStayPeriodService;
+import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.util.List;
 
@@ -21,11 +21,11 @@ import java.util.List;
 @RequestMapping("/patient")
 public class PatientInfoController {
     private final PatientService patientService;
-    private final PatientStayPeriodService patientStayPeriodService;
+    private final PatientStayPeriodServiceImpl patientStayPeriodService;
     private final MedicineService medicineService;
 
     @Autowired
-    public PatientInfoController(PatientService patientService, PatientStayPeriodService patientStayPeriodService, MedicineService medicineService) {
+    public PatientInfoController(PatientService patientService, PatientStayPeriodServiceImpl patientStayPeriodService, MedicineService medicineService) {
         this.patientService = patientService;
         this.patientStayPeriodService = patientStayPeriodService;
         this.medicineService = medicineService;

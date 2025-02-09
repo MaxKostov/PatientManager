@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+        }
+
+        header img {
+            height: 240px;
+        }
+
+        .register-container {
+            width: 40%;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 300px;
+            text-align: center;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            color: #3b5320;
+        }
+
+        .register-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .register-container label {
+            font-weight: bold;
+            color: #3b5320;
+            align-self: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .register-container input,
+        .register-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .register-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #3b5320;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .register-container button:hover {
+            background-color: #3B5320FF;
+        }
+
+        .register-container .success {
+            color: green;
+            margin-bottom: 15px;
+        }
+
+        .register-container .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .register-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #3b5320;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20"><polygon points="0,0 20,0 10,10" fill="%233b5320"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 14px;
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .register-container select:focus {
+            border-color: #3b5320;
+            box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+            outline: none;
+        }
+
+        .register-container option {
+            padding: 10px;
+            background-color: #ffffff;
+            color: #3b5320;
+        }
+
+        .register-container select option:hover {
+            background-color: #f0f4ec;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <img src="/images/logo.png" alt="Company Logo">
+</header>
+
+<div class="register-container">
+    <h2>Register</h2>
+    <form th:action="@{/userReg/save}" method="post">
+        <div th:if="${param.success}" class="success">Registration successful! Please <a href="/login">login</a>.</div>
+        <div th:if="${param.error}" class="error">Registration failed. Try again.</div>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+            <option value="" disabled selected>Select your role</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role.id}"
+                    th:text="${role.name}"></option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+</body>
+</html>
