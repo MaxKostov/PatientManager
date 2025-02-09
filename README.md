@@ -44,4 +44,4 @@
    ```bash
    ./mvnw spring-boot:run
    ```
-5. Access the application at `http://localhost:8080`.
+5. Access the application at `http://localhost:8080`. (Only ADMIN can register new users)
