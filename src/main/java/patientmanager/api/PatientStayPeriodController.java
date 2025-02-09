@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import patientmanager.entities.PatientStayPeriod;
-import patientmanager.services.PatientStayPeriodService;
+import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import java.util.List;
 @RequestMapping("/api/patient-stay-period")
 public class PatientStayPeriodController {
 
-    private final PatientStayPeriodService patientStayPeriodService;
+    private final PatientStayPeriodServiceImpl patientStayPeriodService;
 
     @Autowired
-    public PatientStayPeriodController(PatientStayPeriodService patientStayPeriodService) {
+    public PatientStayPeriodController(PatientStayPeriodServiceImpl patientStayPeriodService) {
         this.patientStayPeriodService = patientStayPeriodService;
     }
 

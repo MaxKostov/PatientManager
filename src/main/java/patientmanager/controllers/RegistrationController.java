@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
 import patientmanager.services.PatientService;
-import patientmanager.services.PatientStayPeriodService;
+import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
 @RequestMapping("/register")
 public class RegistrationController {
     private final PatientService patientService;
-    private final PatientStayPeriodService patientStayPeriodService;
+    private final PatientStayPeriodServiceImpl patientStayPeriodService;
 
-    public RegistrationController(PatientService patientService, PatientStayPeriodService patientStayPeriodService) {
+    public RegistrationController(PatientService patientService, PatientStayPeriodServiceImpl patientStayPeriodService) {
         this.patientService = patientService;
         this.patientStayPeriodService = patientStayPeriodService;
     }
