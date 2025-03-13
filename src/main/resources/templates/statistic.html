@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Patient Admission Statistics</title>
 </head>
 <body>
 <h2>Patient Admission Statistics</h2>
 
-<form action="/statistics" method="get">
+<form action="/register/statistics" method="get">
     <label for="filter-month">Filter by Month:</label>
     <select id="filter-month" name="month">
         <option value="all" th:selected="${filterMonth == 'all'}">All</option>
@@ -26,30 +26,25 @@
         <option value="12" th:selected="${filterMonth == '12'}">December</option>
     </select>
 
-    <label for="filter-gender">Filter by Gender:</label>
-    <select id="filter-gender" name="gender">
-        <option value="all" th:selected="${filterGender == 'all'}">All</option>
-        <option value="male" th:selected="${filterGender == 'male'}">Male</option>
-        <option value="female" th:selected="${filterGender == 'female'}">Female</option>
-    </select>
-
     <label for="filter-voucher">Filter by Travel Voucher:</label>
     <select id="filter-voucher" name="voucher">
         <option value="all" th:selected="${filterVoucher == 'all'}">All</option>
-        <option value="1" th:selected="${filterVoucher == '1'}">Type 1</option>
-        <option value="2" th:selected="${filterVoucher == '2'}">Type 2</option>
+        <option th:each="voucher : ${T(patientmanager.entities.TravelVoucher).values()}"
+                th:value="${voucher}"
+                th:text="${voucher}"
+                th:selected="${filterVoucher == voucher}">
+        </option>
     </select>
 
     <button type="submit">Filter</button>
 </form>
 
-<table>
+<table border="1">
     <thead>
     <tr>
         <th>Patient ID</th>
         <th>Name</th>
         <th>Surname</th>
-        <th>Gender</th>
         <th>Admission Date</th>
         <th>Discharge Date</th>
         <th>Travel Voucher</th>
@@ -57,17 +52,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="patient : ${patients}">
-        <td th:text="${patient.id}"></td>
-        <td th:text="${patient.name}"></td>
-        <td th:text="${patient.surname}"></td>
-        <td th:text="${patient.gender}"></td>
-        <td th:text="${patient.admissionDate}"></td>
-        <td th:text="${patient.dischargeDate}"></td>
-        <td th:text="${patient.voucher}"></td>
-        <td th:text="${patient.address}"></td>
+    <tr th:each="period : ${stayPeriods}">
+        <td th:text="${period.patient.id}"></td>
+        <td th:text="${period.patient.name}"></td>
+        <td th:text="${period.patient.surname}"></td>
+        <td th:text="${period.admissionDate}"></td>
+        <td th:text="${period.dischargeDate}"></td>
+        <td th:text="${period.travelVoucher}"></td>
+        <td th:text="${period.patient.address}"></td>
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

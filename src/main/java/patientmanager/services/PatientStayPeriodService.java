@@ -1,16 +1,18 @@
 package patientmanager.services;
 
 import patientmanager.entities.PatientStayPeriod;
+import patientmanager.entities.TravelVoucher;
 
 import java.util.List;
 
 public interface PatientStayPeriodService {
-    public PatientStayPeriod addInitialDiagnosis(String initDiagnosis, String passportId);
+    PatientStayPeriod addInitialDiagnosis(String initDiagnosis, String passportId);
 
-    public PatientStayPeriod addDischargeSummary(String dischargeSummary, String passportId);
+    PatientStayPeriod addDischargeSummary(String dischargeSummary, String passportId);
 
-    public PatientStayPeriod showPatientStayPeriod(String passportId);
+    PatientStayPeriod showPatientStayPeriod(String passportId);
 
-    public List<PatientStayPeriod> showAllPeriods(String passportId);
+    List<PatientStayPeriod> showAllPeriods(String passportId);
 
+    List<PatientStayPeriod> getPeriodsByMonthAndTravelVoucher(int month, TravelVoucher travelVoucher);
 }

@@ -10,6 +10,7 @@ import patientmanager.data.PatientStayPeriodRepo;
 import patientmanager.entities.MedicalInfo;
 import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
+import patientmanager.entities.TravelVoucher;
 import patientmanager.services.PatientStayPeriodService;
 
 import java.util.List;
@@ -108,5 +109,9 @@ public class PatientStayPeriodServiceImpl implements PatientStayPeriodService {
             return null;
         }
         return period;
+    }
+
+    public List<PatientStayPeriod> getPeriodsByMonthAndTravelVoucher(int month, TravelVoucher travelVoucher) {
+        return patientStayPeriodRepo.findByMonthAndTravelVoucher(month, travelVoucher);
     }
 }

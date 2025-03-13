@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
+import patientmanager.entities.TravelVoucher;
 import patientmanager.services.PatientService;
 import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
@@ -211,5 +212,23 @@ public class RegistrationController {
         patientService.addStayPeriod(servicePatient, stayPeriod);
 
         return "redirect:/register";
+    }
+
+
+    @GetMapping("/statistics")
+    public String handleStatistics(        @RequestParam(required = false) String month,
+                                           @RequestParam(required = false) String voucher,
+                                           Model model) {
+        if (month == null || voucher == null) {return "statistic";}
+
+        TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
+        List<PatientStayPeriod> periods = patientStayPeriodService.getPeriodsByMonthAndTravelVoucher(Integer.parseInt(month), travelVoucher);
+
+
+        model.addAttribute("stayPeriods", periods);
+        model.addAttribute("filterMonth", month);
+        model.addAttribute("filterVoucher", voucher);
+
+        return "statistic";
     }
 }
