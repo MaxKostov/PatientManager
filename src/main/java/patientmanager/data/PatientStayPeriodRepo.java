@@ -12,4 +12,9 @@ public interface PatientStayPeriodRepo extends JpaRepository<PatientStayPeriod, 
     @Query(value = "SELECT * FROM period p WHERE EXTRACT(MONTH FROM p.admission_date) = :month AND p.travel_voucher = :travelVoucher", nativeQuery = true)
     List<PatientStayPeriod> findByMonthAndTravelVoucher(@Param("month") int month, @Param("travelVoucher") TravelVoucher travelVoucher);
 
+    @Query(value = "SELECT * FROM period p WHERE p.travel_voucher = :travelVoucher", nativeQuery = true)
+    List<PatientStayPeriod> findByTravelVoucher(@Param("travelVoucher") TravelVoucher travelVoucher);
+
+    @Query(value = "SELECT * FROM period p WHERE EXTRACT(MONTH FROM p.admission_date) = :month", nativeQuery = true)
+    List<PatientStayPeriod> findByMonth(@Param("month") int month);
 }

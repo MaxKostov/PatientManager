@@ -216,15 +216,26 @@ public class RegistrationController {
 
 
     @GetMapping("/statistics")
-    public String handleStatistics(        @RequestParam(required = false) String month,
-                                           @RequestParam(required = false) String voucher,
-                                           Model model) {
+    public String handleStatistics(@RequestParam(required = false) String month,
+                                   @RequestParam(required = false) String voucher,
+                                   Model model) {
         if (month == null || voucher == null) {return "statistic";}
 
-        TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
-        List<PatientStayPeriod> periods = patientStayPeriodService.getPeriodsByMonthAndTravelVoucher(Integer.parseInt(month), travelVoucher);
+        List<PatientStayPeriod> periods;
 
+        if (month.equals("all") && voucher.equals("all")) {
+            periods = patientStayPeriodService.getAllPatientStayPeriods();
+        } else if (month.equals("all") && !voucher.equals("all")) {
+            TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
+            periods = patientStayPeriodService.getPatientStayPeriodsByTravelVoucher(travelVoucher);
+        } else if (voucher.equals("all") && !month.equals("all")) {
+            periods = patientStayPeriodService.getPatientStayPeriodsByMonth(Integer.parseInt(month));
+        } else {
+            TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
+            periods = patientStayPeriodService.getPeriodsByMonthAndTravelVoucher(Integer.parseInt(month), travelVoucher);
+        }
 
+        model.addAttribute("patientCount", periods.size());
         model.addAttribute("stayPeriods", periods);
         model.addAttribute("filterMonth", month);
         model.addAttribute("filterVoucher", voucher);

@@ -26,15 +26,15 @@
         <option value="12" th:selected="${filterMonth == '12'}">December</option>
     </select>
 
-    <label for="filter-year">Filter by Year:</label>
-    <select id="filter-year" name="year">
-        <option value="all" th:selected="${filterYear == 'all'}">All</option>
-        <option th:each="year : ${years}"
-                th:value="${year}"
-                th:text="${year}"
-                th:selected="${filterYear == year}">
-        </option>
-    </select>
+<!--    <label for="filter-year">Filter by Year:</label>-->
+<!--    <select id="filter-year" name="year">-->
+<!--        <option value="all" th:selected="${filterYear == 'all'}">All</option>-->
+<!--        <option th:each="year : ${years}"-->
+<!--                th:value="${year}"-->
+<!--                th:text="${year}"-->
+<!--                th:selected="${filterYear == year}">-->
+<!--        </option>-->
+<!--    </select>-->
 
 
     <label for="filter-voucher">Filter by Travel Voucher:</label>
