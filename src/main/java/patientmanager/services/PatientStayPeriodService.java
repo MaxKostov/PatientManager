@@ -14,11 +14,5 @@ public interface PatientStayPeriodService {
 
     List<PatientStayPeriod> showAllPeriods(String passportId);
 
-    List<PatientStayPeriod> getPeriodsByMonthAndTravelVoucher(int month, TravelVoucher travelVoucher);
-
-    List<PatientStayPeriod> getAllPatientStayPeriods();
-
-    List<PatientStayPeriod> getPatientStayPeriodsByTravelVoucher(TravelVoucher travelVoucher);
-
-    List<PatientStayPeriod> getPatientStayPeriodsByMonth(int month);
+    List<PatientStayPeriod> getFilteredPeriods(Integer month, Integer voucher, Integer year, Boolean active);
 }

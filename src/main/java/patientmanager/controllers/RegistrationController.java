@@ -13,7 +13,10 @@ import patientmanager.services.PatientService;
 import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.time.LocalDate;
+import java.time.Year;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/register")
@@ -218,27 +221,37 @@ public class RegistrationController {
     @GetMapping("/statistics")
     public String handleStatistics(@RequestParam(required = false) String month,
                                    @RequestParam(required = false) String voucher,
+                                   @RequestParam(required = false) String year,
+                                   @RequestParam(required = false, defaultValue = "false") Boolean onlyActive,
                                    Model model) {
-        if (month == null || voucher == null) {return "statistic";}
 
-        List<PatientStayPeriod> periods;
+        int currentYear = Year.now().getValue();
+        List<Integer> years = IntStream.rangeClosed(2000, currentYear)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .toList();
+        model.addAttribute("years", years);
 
-        if (month.equals("all") && voucher.equals("all")) {
-            periods = patientStayPeriodService.getAllPatientStayPeriods();
-        } else if (month.equals("all") && !voucher.equals("all")) {
-            TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
-            periods = patientStayPeriodService.getPatientStayPeriodsByTravelVoucher(travelVoucher);
-        } else if (voucher.equals("all") && !month.equals("all")) {
-            periods = patientStayPeriodService.getPatientStayPeriodsByMonth(Integer.parseInt(month));
-        } else {
-            TravelVoucher travelVoucher = TravelVoucher.valueOf(voucher);
-            periods = patientStayPeriodService.getPeriodsByMonthAndTravelVoucher(Integer.parseInt(month), travelVoucher);
+        System.out.println("Month: " + month);
+        System.out.println("Year: " + year);
+
+        if (month == null || voucher == null) {
+            return "statistic";
         }
+
+
+        Integer monthValue = ("all".equals(month)) ? null : Integer.parseInt(month);
+        Integer travelVoucher = ("all".equals(voucher)) ? null : TravelVoucher.valueOf(voucher).ordinal();
+        Integer yearValue = ("all".equals(year)) ? null : Integer.parseInt(year);
+
+        List<PatientStayPeriod> periods = patientStayPeriodService.getFilteredPeriods(monthValue, travelVoucher, yearValue, onlyActive);
 
         model.addAttribute("patientCount", periods.size());
         model.addAttribute("stayPeriods", periods);
         model.addAttribute("filterMonth", month);
         model.addAttribute("filterVoucher", voucher);
+        model.addAttribute("filterYear", year);
+        model.addAttribute("onlyActive", onlyActive);
 
         return "statistic";
     }

@@ -111,19 +111,8 @@ public class PatientStayPeriodServiceImpl implements PatientStayPeriodService {
         return period;
     }
 
-    public List<PatientStayPeriod> getPeriodsByMonthAndTravelVoucher(int month, TravelVoucher travelVoucher) {
-        return patientStayPeriodRepo.findByMonthAndTravelVoucher(month, travelVoucher);
-    }
+    public List<PatientStayPeriod> getFilteredPeriods(Integer month, Integer voucher, Integer year, Boolean active) {
 
-    public List<PatientStayPeriod> getAllPatientStayPeriods() {
-        return patientStayPeriodRepo.findAll();
-    }
-
-    public List<PatientStayPeriod> getPatientStayPeriodsByTravelVoucher(TravelVoucher travelVoucher) {
-        return patientStayPeriodRepo.findByTravelVoucher(travelVoucher);
-    }
-
-    public List<PatientStayPeriod> getPatientStayPeriodsByMonth(int month) {
-        return patientStayPeriodRepo.findByMonth(month);
+        return patientStayPeriodRepo.findByFilters(month, voucher, year, active);
     }
 }
