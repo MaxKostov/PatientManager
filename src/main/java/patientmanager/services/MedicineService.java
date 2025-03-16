@@ -4,18 +4,18 @@ import patientmanager.entities.Medicine;
 
 import java.util.List;
 
-public interface MedicineService {
-    public Medicine createMedicine(String name, int quantity, double price);
+ public interface MedicineService {
+     Medicine createMedicine(String name, int quantity, double price);
 
-    public Medicine updateMedicine(Medicine medicine);
+     Medicine updateMedicine(Medicine medicine);
 
-    public List<Medicine> getAllMedicine();
+     List<Medicine> getAllMedicine();
 
-    public String deleteMedicine(long id);
+     String deleteMedicine(long id);
 
-    public void updateQuantity(Long medicineId, int quantityChange);
+     void updateQuantity(Long medicineId, int quantityChange);
 
-    public String assignMedicineToPatientStayPeriod(Long medicineId, Long patientStayPeriodId, int quantity);
+     String assignMedicineToPatientStayPeriod(Long medicineId, Long patientStayPeriodId, int quantity);
 
-    public Medicine getMedicine(long id);
+     Medicine getMedicine(long id);
 }

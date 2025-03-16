@@ -11,4 +11,6 @@ public interface MedicineRepo extends JpaRepository<Medicine, Long> {
     @Query("UPDATE Medicine m SET m.quantity = m.quantity + :quantityChange WHERE m.id = :medicineId AND (m.quantity + :quantityChange) >= 0")
     int updateQuantity(@Param("medicineId") Long medicineId, @Param("quantityChange") int quantityChange);
 
+    @Query("SELECT m FROM Medicine m WHERE m.name = :name")
+    Medicine findMedicineByName(@Param("name") String name);
 }

@@ -34,6 +34,15 @@ public class MedicineServiceImpl implements MedicineService {
     public Medicine createMedicine(String name, int quantity, double price) {
         Medicine medicine = new Medicine();
         medicine.setName(name);
+
+        Medicine optionalMedicine = medicineRepo.findMedicineByName(name);
+        if (optionalMedicine != null) {
+            optionalMedicine.setPrice(price);
+            updateQuantity(optionalMedicine.getId(), quantity);
+            updateMedicine(optionalMedicine);
+            return optionalMedicine;
+        }
+
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be negative");
         }
