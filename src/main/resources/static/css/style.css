@@ -402,6 +402,9 @@
     transition: background-color 0.3s;
     margin-top: 20px;
 }
+.add-medicine-span{
+    padding: 20px 0;
+}
 
 .info-button:hover {
     background-color: #3B5320FF;
