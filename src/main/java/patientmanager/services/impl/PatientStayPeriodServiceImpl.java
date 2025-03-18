@@ -10,7 +10,6 @@ import patientmanager.data.PatientStayPeriodRepo;
 import patientmanager.entities.MedicalInfo;
 import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
-import patientmanager.entities.TravelVoucher;
 import patientmanager.services.PatientStayPeriodService;
 
 import java.util.List;

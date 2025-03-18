@@ -17,7 +17,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/sanatory
     username: postgres
-    password: 029147367
+    password: 159753
   jpa:
     hibernate:
       ddl-auto: update

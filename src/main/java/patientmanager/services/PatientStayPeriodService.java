@@ -1,7 +1,6 @@
 package patientmanager.services;
 
 import patientmanager.entities.PatientStayPeriod;
-import patientmanager.entities.TravelVoucher;
 
 import java.util.List;
 

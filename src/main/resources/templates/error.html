@@ -15,7 +15,7 @@
     <h1>Access Denied</h1>
     <p th:text="${errorMessage ?: 'You cannot access this page directly.'}">You cannot access this page directly.</p>
     <p th:if="${errorDetails}" th:text="'Details: ' + ${errorDetails}"></p>
-    <button class="error-button" onclick="window.location.href='/register'">Go Back</button>
+    <button class="error-button" onclick="window.location.href='/'">Go Back</button>
 </div>
 </div>
 
