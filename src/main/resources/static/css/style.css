@@ -490,6 +490,7 @@
 }
 
 .medicines-button, .medicines-action-btn {
+    margin-bottom: 50px;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -822,4 +823,161 @@
 
 .patient-form-button:hover {
     background-color: #3B5320FF;
+}
+
+/*Cтили Для PROCEDURES*/
+.procedures-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.procedures-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.procedures-header img {
+    height: 240px;
+}
+
+.procedure-details-container, .procedures-details-container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.procedure-details-container:first-of-type {
+    margin-top: 300px;
+}
+
+.procedure-details-container h2, .procedures-details-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.procedures-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.procedures-table th, .procedures-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.procedures-table th {
+    background-color: #3b5320;
+    color: white;
+}
+
+.procedures-button, .procedures-action-btn {
+    margin-bottom: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.procedures-button:hover, .procedures-action-btn:hover {
+    background-color: #2e3d15;
+}
+
+.procedures-form {
+    margin-top: 20px;
+}
+
+.procedures-form input, .procedures-form label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.procedures-form input[type="text"], .procedures-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-content form div {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #3b5320;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #2e3d15;
 }
