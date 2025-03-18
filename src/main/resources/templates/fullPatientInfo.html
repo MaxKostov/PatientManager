@@ -4,115 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient and Stay Period Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #f4f4f9;
-        }
-
-        header {
-            position: absolute;
-            top: 20px;
-            text-align: center;
-        }
-
-        header img {
-            height: 240px;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            gap: 20px;
-            margin-top: 300px;
-        }
-
-        .details-container {
-            flex: 1;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-
-        .details-container h2 {
-            margin-bottom: 20px;
-            color: #3b5320;
-        }
-
-        .details-container div {
-            margin-bottom: 15px;
-        }
-
-        .details-container label {
-            font-weight: bold;
-            color: #3b5320;
-        }
-
-        .details-container p, .details-container textarea {
-            margin: 0;
-            padding-left: 10px;
-            border-left: 2px solid #3b5320;
-            width: 100%;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #3b5320;
-            color: white;
-            transition: background-color 0.3s;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #3B5320FF;
-        }
-
-        .collapsed {
-            cursor: pointer;
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
-
-        .collapsed:hover {
-            background-color: #eaeaea;
-        }
-
-        .expanded {
-            margin-top: 10px;
-            background-color: white;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header>
-    <img src="/images/logo.png" alt="Company Logo">
+<div class="info-body">
+<header class="info-header">
+    <img src="/images/favicon.ico" alt="Company Logo">
 </header>
-<div class="container">
-    <div class="details-container">
+<div class="info-container">
+    <div class="info-details-container">
         <h2>Patient Details</h2>
         <div>
             <label>Name:</label>
@@ -135,21 +35,21 @@
             <p th:text="${patient?.address}">Address of the patient</p>
         </div>
     </div>
-    <div class="details-container">
+    <div class="info-details-container">
         <h2>Current Stay Period</h2>
         <div th:if="${lastPatientStayPeriod != null}">
             <form th:action="@{/patient/submit-initial-diagnosis}" method="post">
                 <div>
                     <label>Initial Diagnosis:</label>
                     <textarea name="initialDiagnosis" th:text="${lastPatientStayPeriod?.medicalInfo?.initialDiagnosis}"></textarea>
-                    <button type="submit">Submit</button>
+                    <button class="info-button" type="submit">Submit</button>
                 </div>
             </form>
             <form th:action="@{/patient/submit-discharge-summary}" method="post">
                 <div>
                     <label>Discharge Summary:</label>
-                    <textarea name="dischargeSummary" th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
-                    <button type="submit">Submit</button>
+                    <textarea class="info-textarea" name="dischargeSummary" th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
+                    <button class="info-button" type="submit">Submit</button>
                 </div>
             </form>
             <div>
@@ -174,7 +74,7 @@
                     <label for="quantity">Quantity:</label>
                     <input type="number" name="quantity" id="quantity" min="1" required />
 
-                    <button type="submit">Add Medicine</button>
+                    <button class="info-button" type="submit">Add Medicine</button>
                 </form>
             </div>
 
@@ -187,7 +87,7 @@
 
 </div>
 
-<div class="details-container">
+<div class="info-details-container">
     <h2>Previous Stay Periods</h2>
     <div th:each="period : ${periodList}">
         <div class="collapsed" onclick="this.nextElementSibling.classList.toggle('expanded')">
@@ -202,7 +102,7 @@
     </div>
 </div>
 
-<button onclick="window.location.href='/'">Go Back</button>
+<button class="info-button" onclick="window.location.href='/'">Go Back</button>
 
 <script>
     document.querySelectorAll('.collapsed').forEach(item => {
@@ -212,6 +112,6 @@
         });
     });
 </script>
-
+</div>
 </body>
 </html>

@@ -1,0 +1,822 @@
+/*Стили Для HOME*/
+*{
+    margin: 0;
+    padding: 0;
+}
+.home-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.home-header {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-header img {
+    height: 240px;
+}
+
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.auth-buttons button:hover {
+    background-color: #3B5320FF;
+}
+
+.home-container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 100px;
+    text-align: center;
+}
+
+.home-subtitle {
+    margin-bottom: 30px;
+    color: #3b5320;
+}
+
+.home-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.home-container button:hover {
+    background-color: #3B5320FF;
+}
+
+/*Стили Для LOGIN */
+.login-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.login-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.login-header img {
+    height: 240px;
+}
+
+.login-container {
+    width: 40%;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 300px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container label {
+    font-weight: bold;
+    color: #3b5320;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.login-container button.login-btn {
+    background-color: #3b5320;
+    color: white;
+}
+
+.login-container button.login-btn:hover {
+    background-color: #3B5320FF;
+}
+
+.login-container button.register-btn {
+    background-color: white;
+    color: #3b5320;
+    border: 2px solid #3b5320;
+}
+
+.login-container button.register-btn:hover {
+    background-color: #3b5320;
+    color: white;
+}
+
+.login-container .error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+/*Стили Для ERROR*/
+.error-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.error-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.error-header img {
+    height: 120px;
+}
+
+.error-container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error-container h1 {
+    color: #b71c1c;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.error-button:hover {
+    background-color: #3B5320FF;
+}
+
+/*Стили Для AddStayPeriod*/
+.period-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.period-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.period-header img {
+    height: 240px;
+}
+
+.period-form-container {
+    width: 60%;
+    background: white;
+    margin-top: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.period-form-container select {
+    padding: 10px;
+    font-size: 14px;
+    width: 270px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.period-form-container select:focus {
+    outline: none;
+    border-color: #3b5320;
+    box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+}
+
+.period-form-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.period-form-container div {
+    margin-bottom: 15px;
+}
+
+.period-form-container label {
+    font-weight: bold;
+    color: #3b5320;
+}
+
+.period-form-container p {
+    padding-left: 10px;
+    border-left: 2px solid #3b5320;
+}
+
+.period-form-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.period-button{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.period-button:hover {
+    background-color: #3B5320FF;
+}
+
+/*Стили Для FullPatientInfo*/
+.info-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.info-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.info-header img {
+    height: 240px;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    gap: 20px;
+    margin-top: 300px;
+}
+
+.info-details-container {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.info-details-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.info-details-container div {
+    margin-bottom: 15px;
+}
+
+.info-details-container label {
+    font-weight: bold;
+    color: #3b5320;
+}
+
+.info-details-container p, .details-container textarea {
+    margin: 0;
+    padding-left: 10px;
+    border-left: 2px solid #3b5320;
+    width: 100%;
+}
+
+.info-textarea {
+    resize: vertical;
+}
+
+.info-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.info-button:hover {
+    background-color: #3B5320FF;
+}
+
+.collapsed {
+    cursor: pointer;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.collapsed:hover {
+    background-color: #eaeaea;
+}
+
+.expanded {
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/*Стили Для MEDICINES*/
+.medicines-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.medicines-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.medicines-header img {
+    height: 240px;
+}
+
+.medicines-details-container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.medicines-details-container:first-of-type {
+    margin-top: 300px;
+}
+
+.medicines-details-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.medicines-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.medicines-table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.medicines-table th {
+    background-color: #3b5320;
+    color: white;
+}
+
+.medicines-button, .medicines-action-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.medicines-button:hover, .medicines-action-btn:hover {
+    background-color: #3B5320FF;
+}
+
+.medicines-form {
+    margin-top: 20px;
+}
+
+.medicines-form input, .medicines-form label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.medicines-form input[type="text"], .medicines-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-content form div {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #3b5320;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #2e3d15;
+}
+
+/*Стили для PASSPORT IN*/
+.passport-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.passport-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.passport-header img {
+    height: 240px;
+}
+
+.passport-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    transition: border-color 0.3s;
+}
+
+.passport-input:focus {
+    border-color: #3b5320;
+    outline: none;
+}
+
+.passport-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.passport-button:hover {
+    background-color: #3B5320FF;
+}
+
+/*Стили Для  PATIENT DETAILS*/
+.patient-details-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.patient-details-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.patient-details-header img {
+    height: 240px;
+}
+
+.patient-details-container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.patient-details-container:first-of-type {
+    margin-top: 300px;
+}
+.patient-details-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.patient-details-container div {
+    margin-bottom: 15px;
+}
+
+.patient-details-container label {
+    font-weight: bold;
+    color: #3b5320;
+}
+
+.patient-details-container p {
+    margin: 0;
+    padding-left: 10px;
+    border-left: 2px solid #3b5320;
+}
+
+.patient-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.patient-details-table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.patient-details-table th {
+    background-color: #3b5320;
+    color: white;
+}
+
+.patient-details-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.patient-details-button:hover {
+    background-color: #3B5320FF;
+}
+
+/*Стили Для PATIENT FORM*/
+.patient-form-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f4f4f9;
+}
+
+.patient-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.patient-form-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.patient-form-header img {
+    height: 240px;
+}
+
+.patient-form-container select {
+    padding: 10px;
+    font-size: 14px;
+    width: 270px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.patient-form-container select:focus {
+    outline: none;
+    border-color: #3b5320;
+    box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+}
+
+.patient-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.patient-form-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.patient-form-container input {
+    padding: 10px;
+    font-size: 14px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.patient-form-container input[readonly] {
+    background-color: #e9e9e9;
+}
+
+.patient-form-error-message {
+    color: red;
+    margin-top: -10px;
+    display: block;
+}
+
+.patient-form-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.patient-form-button:hover {
+    background-color: #3B5320FF;
+}
