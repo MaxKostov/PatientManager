@@ -64,6 +64,7 @@
 <button class="procedures-button" onclick="window.location.href='/'">Go Back</button>
 
 <script>
+
     function openEditModal(button) {
         const id = button.getAttribute('data-id');
         const name = button.getAttribute('data-name');
@@ -89,6 +90,18 @@
             modal.style.display = 'none';
         }
     }
+
+    function showAlert(message) {
+        alert(message);
+    }
+
+    window.onload = function() {
+        let errorMessage = {errorMessage};
+        if (errorMessage) {
+            showAlert(errorMessage);
+        }
+    };
+
 </script>
 </div>
 </body>
