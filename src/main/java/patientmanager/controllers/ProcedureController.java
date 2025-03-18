@@ -3,6 +3,7 @@ package patientmanager.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import patientmanager.entities.Procedure;
 import patientmanager.services.ProcedureService;
 
@@ -44,8 +45,12 @@ public class ProcedureController {
     }
 
     @PostMapping("/add")
-    public String createProcedure(@ModelAttribute Procedure procedure) {
-        procedureService.createProcedure(procedure);
+    public String createProcedure(@ModelAttribute Procedure procedure, RedirectAttributes redirectAttributes) {
+        Procedure optionalProcedure = procedureService.createProcedure(procedure);
+        if (optionalProcedure == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Такая процедура уже существует");
+            return "redirect:/procedures";
+        }
         return "redirect:/procedures";
     }
 }

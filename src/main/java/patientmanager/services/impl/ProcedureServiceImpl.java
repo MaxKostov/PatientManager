@@ -25,7 +25,7 @@ public class ProcedureServiceImpl implements ProcedureService {
     public Procedure createProcedure(Procedure procedure) {
         Procedure optionalProcedure = procedureRepo.findByName(procedure.getName());
         if (optionalProcedure != null) {
-            throw new IllegalArgumentException("Procedure already exists");
+            return null;
         }
         return procedureRepo.save(procedure);
     }
