@@ -478,18 +478,26 @@
     margin-top: 20px;
 }
 
-.medicines-table th, table td {
+.medicines-table th, .medicines-table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
-
+.medicines-table td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.medicines-table td form {
+    display: inline-block;
+    margin: 0;
+}
 .medicines-table th {
     background-color: #3b5320;
     color: white;
 }
 
 .medicines-button, .medicines-action-btn {
+
     margin-bottom: 50px;
     padding: 10px 20px;
     font-size: 16px;
@@ -502,6 +510,11 @@
     margin-top: 10px;
     margin-right: 5px;
 }
+
+.medicines-action-btn{
+    margin-bottom: 0;
+}
+
 
 .medicines-button:hover, .medicines-action-btn:hover {
     background-color: #3B5320FF;
@@ -873,6 +886,7 @@
 }
 
 .procedures-table th, .procedures-table td {
+    vertical-align: middle;
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -895,6 +909,9 @@
     transition: background-color 0.3s;
     margin-top: 10px;
     margin-right: 5px;
+}
+.procedures-action-btn{
+    margin-bottom: 0;
 }
 
 .procedures-button:hover, .procedures-action-btn:hover {
@@ -980,4 +997,275 @@
 
 .modal-content button:hover {
     background-color: #2e3d15;
+}
+
+/* Стили Для REGISTRATION*/
+.registration-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.registration-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.registration-header img {
+    height: 240px;
+}
+
+.registration-buttons {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 100px;
+}
+
+.registration-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.registration-button:hover {
+    background-color: #3B5320FF;
+}
+
+/* Стили Для STATISTIC*/
+.statistic-body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f9;
+}
+
+.statistic-subtitle {
+    margin: 20px 0;
+    color: #3b5320;
+}
+
+.statistic-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.statistic-label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #3b5320;
+}
+
+.statistic-select{
+    width: 100px;
+    margin: 5px 0 10px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.statistic-input[type="checkbox"]{
+    margin: 5px 0 10px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.statistic-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.statistic-button:hover {
+    background-color: #2f411a;
+}
+
+.statistic-text {
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #3b5320;
+}
+
+.statistic-table {
+    width: 80%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.statistic-th, .statistic-td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.statistic-th {
+    background-color: #3b5320;
+    color: white;
+}
+
+.statistic-tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+.statistic-tr:hover {
+    background-color: #ddd;
+}
+
+/*Стили Для USER REGISTRATION*/
+.userReg-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+}
+
+.userReg-header {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+}
+
+.userReg-header img {
+    height: 240px;
+}
+
+.userReg-container {
+    width: 40%;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 300px;
+    text-align: center;
+}
+
+.userReg-container h2 {
+    margin-bottom: 20px;
+    color: #3b5320;
+}
+
+.userReg-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userReg-container label {
+    font-weight: bold;
+    color: #3b5320;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+.userReg-container input,
+.userReg-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.userReg-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #3b5320;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.userReg-container button:hover {
+    background-color: #3B5320FF;
+}
+
+.userReg-container .success {
+    color: green;
+    margin-bottom: 15px;
+}
+
+.userReg-container .error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.userReg-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #3b5320;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20"><polygon points="0,0 20,0 10,10" fill="%233b5320"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.userReg-container select:focus {
+    border-color: #3b5320;
+    box-shadow: 0 0 5px rgba(59, 83, 32, 0.5);
+    outline: none;
+}
+
+.userReg-container option {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #3b5320;
+}
+
+.userReg-container select option:hover {
+    background-color: #f0f4ec;
 }

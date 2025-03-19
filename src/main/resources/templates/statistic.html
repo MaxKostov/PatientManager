@@ -4,116 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Admission Statistics</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f4f4f9;
-        }
-
-        h2 {
-            margin-top: 20px;
-            color: #3b5320;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            color: #3b5320;
-        }
-
-        select{
-            width: 100px;
-            margin: 5px 0 10px;
-            padding: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        input[type="checkbox"]{
-            margin: 5px 0 10px;
-            padding: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-          }
-
-          button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #3b5320;
-            color: white;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #2f411a;
-        }
-
-        p {
-            font-size: 18px;
-            font-weight: bold;
-            color: #3b5320;
-        }
-
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #3b5320;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f4f4f9;
-        }
-
-        tr:hover {
-            background-color: #ddd;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<h2>Patient Admission Statistics</h2>
+<div class="statistic-body">
+<h2 class="statistic-subtitle">Patient Admission Statistics</h2>
 
-<form action="/register/statistics" method="get">
-    <label for="filter-month">Filter by Month:</label>
-    <select id="filter-month" name="month">
-        <option value="all" th:selected="${filterMonth == 'all'}">All</option>
+<form class="statistic-form" action="/register/statistics" method="get">
+    <label class="statistic-label" for="filter-month">Filter by Month:</label>
+    <select class="statistic-select" id="filter-month" name="month">
+        <option  value="all" th:selected="${filterMonth == 'all'}">All</option>
         <option value="1" th:selected="${filterMonth == '1'}">January</option>
         <option value="2" th:selected="${filterMonth == '2'}">February</option>
         <option value="3" th:selected="${filterMonth == '3'}">March</option>
@@ -128,8 +28,8 @@
         <option value="12" th:selected="${filterMonth == '12'}">December</option>
     </select>
 
- <label for="filter-year">Filter by Year:</label>
-    <select id="filter-year" name="year">
+ <label class="statistic-label" for="filter-year">Filter by Year:</label>
+    <select class="statistic-select" id="filter-year" name="year">
        <option value="all" th:selected="${filterYear == 'all'}">All</option>
         <option th:each="year : ${years}"
                 th:value="${year}"
@@ -139,8 +39,8 @@
   </select>
 
 
-    <label for="filter-voucher">Filter by Travel Voucher:</label>
-    <select id="filter-voucher" name="voucher">
+    <label class="statistic-label" for="filter-voucher">Filter by Travel Voucher:</label>
+    <select class="statistic-select" id="filter-voucher" name="voucher">
         <option value="all" th:selected="${filterVoucher == 'all'}">All</option>
         <option th:each="voucher : ${T(patientmanager.entities.TravelVoucher).values()}"
                 th:value="${voucher}"
@@ -149,38 +49,39 @@
         </option>
     </select>
 
-    <input type="checkbox" id="only-active" name="onlyActive" th:checked="${onlyActive}">
-    <label for="only-active">Show only active patients</label>
+    <input class="statistic-input" type="checkbox" id="only-active" name="onlyActive" th:checked="${onlyActive}">
+    <label class="statistic-label" for="only-active">Show only active patients</label>
 
-    <button type="submit">Filter</button>
+    <button class="statistic-button" type="submit">Filter</button>
 </form>
 
-<p>Filtred patients: <span th:text="${patientCount}"></span></p>
+<p class="statistic-text">Filtred patients: <span th:text="${patientCount}"></span></p>
 
-<table border="1">
+<table class="statistic-table" border="1">
     <thead>
-    <tr>
-        <th>Patient ID</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Admission Date</th>
-        <th>Discharge Date</th>
-        <th>Travel Voucher</th>
-        <th>Address</th>
+    <tr class="statistic-tr">
+        <th class="statistic-th">Patient ID</th>
+        <th class="statistic-th">Name</th>
+        <th class="statistic-th">Surname</th>
+        <th class="statistic-th">Admission Date</th>
+        <th class="statistic-th">Discharge Date</th>
+        <th class="statistic-th">Travel Voucher</th>
+        <th class="statistic-th">Address</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="period : ${stayPeriods}">
-        <td th:text="${period.patient.id}"></td>
-        <td th:text="${period.patient.name}"></td>
-        <td th:text="${period.patient.surname}"></td>
-        <td th:text="${period.admissionDate}"></td>
-        <td th:text="${period.dischargeDate}"></td>
-        <td th:text="${period.travelVoucher}"></td>
-        <td th:text="${period.patient.address}"></td>
+    <tr class="statistic-tr" th:each="period : ${stayPeriods}">
+        <td class="statistic-td" th:text="${period.patient.id}"></td>
+        <td class="statistic-td" th:text="${period.patient.name}"></td>
+        <td class="statistic-td" th:text="${period.patient.surname}"></td>
+        <td class="statistic-td" th:text="${period.admissionDate}"></td>
+        <td class="statistic-td" th:text="${period.dischargeDate}"></td>
+        <td class="statistic-td" th:text="${period.travelVoucher}"></td>
+        <td class="statistic-td" th:text="${period.patient.address}"></td>
     </tr>
     </tbody>
 </table>
-
+    <button class="statistic-button" onclick="window.location.href='/register'">Go Back</button>
+</div>
 </body>
 </html>
