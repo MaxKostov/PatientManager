@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "procedure")
 @AllArgsConstructor
@@ -20,4 +22,7 @@ public class Procedure {
 
     @NotBlank(message = "Name is required")
     private String name;
+
+    @ManyToMany(mappedBy = "procedures")
+    private List<PatientStayPeriod> patientStayPeriods;
 }

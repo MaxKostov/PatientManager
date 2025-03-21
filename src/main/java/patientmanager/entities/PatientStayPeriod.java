@@ -34,6 +34,14 @@ public class PatientStayPeriod {
     @JoinColumn(name = "med_info_id", referencedColumnName = "id")
     private MedicalInfo medicalInfo;
 
+    @ManyToMany
+    @JoinTable(
+            name = "period_procedure",
+            joinColumns = @JoinColumn(name = "period_id"),
+            inverseJoinColumns = @JoinColumn(name = "procedure_id")
+    )
+    private List<Procedure> procedures;
+
     @NotNull(message = "Travel voucher is required")
     private  TravelVoucher travelVoucher;
 
