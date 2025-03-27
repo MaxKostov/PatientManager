@@ -2,6 +2,7 @@ package patientmanager.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import patientmanager.services.ProcedureService;
 import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/patient")
@@ -99,7 +101,7 @@ public class PatientInfoController {
     }
 
     @PostMapping("/submit-procedures")
-    public String submitProcedure(@RequestParam int procedure_id, HttpSession session, Model model) {
+    public String submitProcedure(@RequestParam Long procedure_id, HttpSession session, Model model) {
         String passportID = (String) session.getAttribute("passportID");
         PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
         procedureService.assignProcedureToStayPeriod(procedure_id, patientStayPeriod);
@@ -107,10 +109,14 @@ public class PatientInfoController {
     }
 
     @PostMapping("/delete-procedure")
-    public String deleteProcedure(@RequestParam("procedure_id") int procedure_id, HttpSession session, Model model) {
-        String passportID = (String) session.getAttribute("passportID");
-        PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
-        procedureService.removeProcedureFromStayPeriod(procedure_id, patientStayPeriod);
-        return "redirect:info";
+    public ResponseEntity<?> deleteProcedure(@RequestParam("procedure_id") Long procedure_id, HttpSession session) {
+        try {
+            String passportID = (String) session.getAttribute("passportID");
+            PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
+            procedureService.removeProcedureFromStayPeriod(procedure_id, patientStayPeriod);
+            return ResponseEntity.ok().body(Map.of("message", "Procedure deleted successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
     }
 }

@@ -54,8 +54,8 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     @Override
     @Transactional
-    public Procedure deleteProcedure(int id) {
-        Optional<Procedure> procedure = procedureRepo.findById((long) id);
+    public Procedure deleteProcedure(Long id) {
+        Optional<Procedure> procedure = procedureRepo.findById(id);
         if (procedure.isPresent()) {
             procedureRepo.delete(procedure.get());
             return procedure.get();
@@ -79,17 +79,18 @@ public class ProcedureServiceImpl implements ProcedureService {
     }
 
     @Override
-    public  Procedure getProcedureById(int id) {
-        return procedureRepo.findById((long) id).orElse(null);
+    public  Procedure getProcedureById(Long id) {
+        return procedureRepo.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
-    public String assignProcedureToStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod) {
+    public String assignProcedureToStayPeriod(Long procedure_id, PatientStayPeriod patientStayPeriod) {
         Procedure procedure = getProcedureById(procedure_id);
         if (patientStayPeriod != null && procedure != null) {
             patientStayPeriod.prescribeProcedure(procedure);
             patientStayPeriodRepo.save(patientStayPeriod);
+            procedureRepo.save(procedure);
             return "Procedure assigned to stay period " + patientStayPeriod.getId() + " to procedure " + procedure.getName();
         }
 
@@ -98,14 +99,16 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     @Override
     @Transactional
-    public String removeProcedureFromStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod) {
-        Procedure procedure = getProcedureById(procedure_id);
-        if (patientStayPeriod != null && procedure != null) {
-            patientStayPeriod.removeProcedure(procedure);
-            patientStayPeriodRepo.save(patientStayPeriod);
-            return "Procedure removed from stay period " + patientStayPeriod.getId() + " to procedure " + procedure.getName();
-        }
+    public String removeProcedureFromStayPeriod(Long procedure_id, PatientStayPeriod patientStayPeriod) {
+        Procedure procedure = procedureRepo.findById(procedure_id)
+                .orElseThrow(() -> new IllegalArgumentException("Procedure not found"));
 
-        return procedure_id + " not removed from procedure " + patientStayPeriod.getId();
+        patientStayPeriod.getProcedures().removeIf(p -> p.getId().equals(procedure_id));
+        procedure.getPatientStayPeriods().remove(patientStayPeriod);
+
+        patientStayPeriodRepo.save(patientStayPeriod);
+        procedureRepo.save(procedure);
+
+        return "Procedure removed successfully";
     }
 }

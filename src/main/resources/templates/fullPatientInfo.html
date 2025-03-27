@@ -57,7 +57,9 @@
                     <ul>
                         <li th:each="procedure : ${lastPatientStayPeriod.procedures}">
                             <span th:text="${procedure.name}"></span>
-                            <button type="button" class="delete-button" data-id="${procedure.id}" onclick="removeProcedure(this)">✖</button>
+                            <button type="button"
+                                    class="delete-button"
+                                    th:attr="data-id=${procedure.id != null ? procedure.id : ''}">✖</button>
                         </li>
                     </ul>
                     <h4 class="add-procedure-span">Add Procedure</h4>
@@ -119,23 +121,41 @@
 
         document.querySelectorAll('.delete-button').forEach(function(button) {
             button.addEventListener('click', function() {
+                // Safely parse the procedure ID
                 const procedure_id = button.getAttribute('data-id');
+
+                // Validate the procedure ID before sending the request
+                if (!procedure_id || isNaN(parseInt(procedure_id))) {
+                    console.error('Invalid procedure ID:', procedure_id);
+                    alert('Cannot delete procedure: Invalid ID');
+                    return;
+                }
 
                 fetch('/patient/delete-procedure', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                     },
                     body: new URLSearchParams({
-                        'procedure_id': procedure_id // Отправляем параметр
+                        'procedure_id': procedure_id.toString()
                     })
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        // Перезагружаем страницу или обновляем интерфейс после успешного удаления
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
                     })
-                    .catch(error => console.error('Ошибка:', error));
+                    .then(data => {
+                        console.log('Procedure deleted successfully', data);
+                        // Remove the procedure from the UI
+                        button.closest('li').remove();
+                    })
+                    .catch(error => {
+                        console.error('Error deleting procedure:', error);
+                        // Optional: Show user-friendly error message
+                        alert('Failed to delete procedure. Please try again.');
+                    });
             });
         });
 

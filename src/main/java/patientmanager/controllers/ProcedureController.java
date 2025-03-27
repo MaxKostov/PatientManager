@@ -27,7 +27,7 @@ public class ProcedureController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteProcedure(@PathVariable int id, Model model) {
+    public String deleteProcedure(@PathVariable Long id, Model model) {
         procedureService.deleteProcedure(id);
         List<Procedure> procedures = procedureService.getAllProcedure();
         model.addAttribute("procedures", procedures);
@@ -35,7 +35,7 @@ public class ProcedureController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProcedure(@PathVariable int id, @RequestParam String name, Model model) {
+    public String editProcedure(@PathVariable Long id, @RequestParam String name, Model model) {
         Procedure optionalProcedure = procedureService.getProcedureById(id);
         optionalProcedure.setName(name);
         procedureService.updateProcedure(optionalProcedure);

@@ -10,15 +10,15 @@ public interface ProcedureService {
 
     Procedure updateProcedure(Procedure procedure);
 
-    Procedure deleteProcedure(int id);
+    Procedure deleteProcedure(Long id);
 
     Procedure getProcedureByName(String procedureName);
 
     List<Procedure> getAllProcedure();
 
-    Procedure getProcedureById(int id);
+    Procedure getProcedureById(Long id);
 
-    String assignProcedureToStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod);
+    String assignProcedureToStayPeriod(Long procedure_id, PatientStayPeriod patientStayPeriod);
 
-    String removeProcedureFromStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod);
+    String removeProcedureFromStayPeriod(Long procedure_id, PatientStayPeriod patientStayPeriod);
 }
