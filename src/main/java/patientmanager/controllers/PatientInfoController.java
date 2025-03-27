@@ -107,7 +107,7 @@ public class PatientInfoController {
     }
 
     @PostMapping("/delete-procedure")
-    public String deleteProcedure(@RequestParam int procedure_id, HttpSession session, Model model) {
+    public String deleteProcedure(@RequestParam("procedure_id") int procedure_id, HttpSession session, Model model) {
         String passportID = (String) session.getAttribute("passportID");
         PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
         procedureService.removeProcedureFromStayPeriod(procedure_id, patientStayPeriod);

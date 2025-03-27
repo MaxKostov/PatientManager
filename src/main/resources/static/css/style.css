@@ -729,20 +729,6 @@
     color: white;
 }
 
-.patient-details-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #3b5320;
-    color: white;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-    margin-bottom: 50px;
-
-}
-
 .patient-details-button:hover {
     background-color: #3B5320FF;
 }

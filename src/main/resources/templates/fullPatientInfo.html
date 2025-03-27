@@ -8,127 +8,146 @@
 </head>
 <body>
 <div class="info-body">
-<header class="info-header">
-    <img src="/images/favicon.ico" alt="Company Logo">
-</header>
-<div class="info-container">
-    <div class="info-details-container">
-        <h2>Patient Details</h2>
-        <div>
-            <label>Name:</label>
-            <p th:text="${patient?.name}">Name of the patient</p>
-        </div>
-        <div>
-            <label>Surname:</label>
-            <p th:text="${patient?.surname}">Surname of the patient</p>
-        </div>
-        <div>
-            <label>Passport ID:</label>
-            <p th:text="${patient?.passportID}">Passport ID of the patient</p>
-        </div>
-        <div>
-            <label>Birth Date:</label>
-            <p th:text="${patient?.birthDate}">Birth Date of the patient</p>
-        </div>
-        <div>
-            <label>Address:</label>
-            <p th:text="${patient?.address}">Address of the patient</p>
-        </div>
-    </div>
-    <div class="info-details-container">
-        <h2>Current Stay Period</h2>
-        <div th:if="${lastPatientStayPeriod != null}">
-            <form th:action="@{/patient/submit-initial-diagnosis}" method="post">
-                <div>
-                    <label>Initial Diagnosis:</label>
-                    <textarea name="initialDiagnosis" th:text="${lastPatientStayPeriod?.medicalInfo?.initialDiagnosis}"></textarea>
-                    <button class="info-button" type="submit">Submit</button>
-                </div>
-            </form>
-            <form th:action="@{/patient/submit-discharge-summary}" method="post">
-                <div>
-                    <label>Discharge Summary:</label>
-                    <textarea class="info-textarea" name="dischargeSummary" th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
-                    <button class="info-button" type="submit">Submit</button>
-                </div>
-            </form>
+    <header class="info-header">
+        <img src="/images/favicon.ico" alt="Company Logo">
+    </header>
+    <div class="info-container">
+        <div class="info-details-container">
+            <h2>Patient Details</h2>
             <div>
-                <label>Procedures:</label>
-                <ul>
-                    <li th:each="procedure : ${lastPatientStayPeriod.procedures}">
-                        <span th:text="${procedure.name}"></span>
-                    </li>
-                </ul>
-                <h4 class="add-procedure-span">Add Procedure</h4>
-                <form th:action="@{/patient/submit-procedures}" method="post">
-                    <label for="procedure">Select Procedure:</label>
-                    <select name="procedure_id" id="procedure">
-                        <option th:each="procedure : ${procedures}"
-                                th:value="${procedure.id}"
-                                th:text="${procedure.name}">
-                        </option>
-                    </select>
-                </form>
-                <button class="info-button" type="submit">Add Procedure</button>
+                <label>Name:</label>
+                <p th:text="${patient?.name}">Name of the patient</p>
             </div>
             <div>
-                <label>Medicines:</label>
-                <ul>
-                    <li th:each="prescription : ${lastPatientStayPeriod.prescriptions}">
-                        <span th:text="${prescription.medicine.name}"></span> -
-                        <span th:text="${prescription.assignedQuantity}"></span> units
-                    </li>
-                </ul>
-
-                <h4 class="add-medicine-span">Add Medicine</h4>
-                <form th:action="@{/patient/submit-medicines}" method="post">
-                    <label for="medicine">Select Medicine:</label>
-                    <select name="medicineId" id="medicine">
-                        <option th:each="medicine : ${medicines}"
-                                th:value="${medicine.id}"
-                                th:text="${medicine.name + ' (' + medicine.quantity + ' in stock)'}">
-                        </option>
-                    </select>
-
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" name="quantity" id="quantity" min="1" required />
-                    <button class="info-button" type="submit">Add Medicine</button>
-                </form>
-
+                <label>Surname:</label>
+                <p th:text="${patient?.surname}">Surname of the patient</p>
             </div>
-
+            <div>
+                <label>Passport ID:</label>
+                <p th:text="${patient?.passportID}">Passport ID of the patient</p>
+            </div>
+            <div>
+                <label>Birth Date:</label>
+                <p th:text="${patient?.birthDate}">Birth Date of the patient</p>
+            </div>
+            <div>
+                <label>Address:</label>
+                <p th:text="${patient?.address}">Address of the patient</p>
+            </div>
         </div>
-        <div th:if="${lastPatientStayPeriod == null}" style="text-align: center; color: gray;">
-            <p>No current stay period available.</p>
+        <div class="info-details-container">
+            <h2>Current Stay Period</h2>
+            <div th:if="${lastPatientStayPeriod != null}">
+                <form th:action="@{/patient/submit-initial-diagnosis}" method="post">
+                    <div>
+                        <label>Initial Diagnosis:</label>
+                        <textarea name="initialDiagnosis" th:text="${lastPatientStayPeriod?.medicalInfo?.initialDiagnosis}"></textarea>
+                        <button class="info-button" type="submit">Submit</button>
+                    </div>
+                </form>
+                <form th:action="@{/patient/submit-discharge-summary}" method="post">
+                    <div>
+                        <label>Discharge Summary:</label>
+                        <textarea class="info-textarea" name="dischargeSummary" th:text="${lastPatientStayPeriod?.medicalInfo?.dischargeSummary}"></textarea>
+                        <button class="info-button" type="submit">Submit</button>
+                    </div>
+                </form>
+                <div>
+                    <label>Procedures:</label>
+                    <ul>
+                        <li th:each="procedure : ${lastPatientStayPeriod.procedures}">
+                            <span th:text="${procedure.name}"></span>
+                            <button type="button" class="delete-button" data-id="${procedure.id}" onclick="removeProcedure(this)">✖</button>
+                        </li>
+                    </ul>
+                    <h4 class="add-procedure-span">Add Procedure</h4>
+                    <form th:action="@{/patient/submit-procedures}" method="post">
+                        <label for="procedure">Select Procedure:</label>
+                        <select name="procedure_id" id="procedure">
+                            <option th:each="procedure : ${procedures}"
+                                    th:value="${procedure.id}"
+                                    th:text="${procedure.name}"></option>
+                        </select>
+                        <button class="info-button" type="submit">Add Procedure</button>
+                    </form>
+                </div>
+                <div>
+                    <label>Medicines:</label>
+                    <ul>
+                        <li th:each="prescription : ${lastPatientStayPeriod.prescriptions}">
+                            <span th:text="${prescription.medicine.name}"></span> -
+                            <span th:text="${prescription.assignedQuantity}"></span> units
+                        </li>
+                    </ul>
+                    <h4 class="add-medicine-span">Add Medicine</h4>
+                    <form th:action="@{/patient/submit-medicines}" method="post">
+                        <label for="medicine">Select Medicine:</label>
+                        <select name="medicineId" id="medicine">
+                            <option th:each="medicine : ${medicines}"
+                                    th:value="${medicine.id}"
+                                    th:text="${medicine.name + ' (' + medicine.quantity + ' in stock)'}"></option>
+                        </select>
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity" id="quantity" min="1" required />
+                        <button class="info-button" type="submit">Add Medicine</button>
+                    </form>
+                </div>
+            </div>
+            <div th:if="${lastPatientStayPeriod == null}" style="text-align: center; color: gray;">
+                <p>No current stay period available.</p>
+            </div>
+        </div>
+
+        <div class="info-details-container">
+            <h2>Previous Stay Periods</h2>
+            <div th:each="period : ${periodList}">
+                <div class="collapsed" onclick="this.nextElementSibling.classList.toggle('expanded')">
+                    <span th:text="${period?.admissionDate} + ' - ' + ${period?.dischargeDate}">(Admission date - Discharge date)</span>
+                    <span th:text="' (' + ${period?.travelVoucher} + ')'">(Travel Voucher)</span>
+                </div>
+                <div class="expanded" style="display: none;">
+                    <p><strong>Initial Diagnosis:</strong> <span th:text="${period?.medicalInfo?.initialDiagnosis}"></span></p>
+                    <p><strong>Discharge Summary:</strong> <span th:text="${period?.medicalInfo?.dischargeSummary}"></span></p>
+                </div>
+            </div>
         </div>
     </div>
+    <button class="info-button" onclick="window.location.href='/'">Go Back</button>
 
-<div class="info-details-container">
-    <h2>Previous Stay Periods</h2>
-    <div th:each="period : ${periodList}">
-        <div class="collapsed" onclick="this.nextElementSibling.classList.toggle('expanded')">
-            <span th:text="${period?.admissionDate} + ' - ' + ${period?.dischargeDate}">(Admission date - Discharge date)</span>
+    <script>
 
-            <span th:text="' (' + ${period?.travelVoucher} + ')'">(Travel Voucher)</span>
-        </div>
-        <div class="expanded" style="display: none;">
-            <p><strong>Initial Diagnosis:</strong> <span th:text="${period?.medicalInfo?.initialDiagnosis}"></span></p>
-            <p><strong>Discharge Summary:</strong> <span th:text="${period?.medicalInfo?.dischargeSummary}"></span></p>
-        </div>
-    </div>
-</div>
 
-</div>
-<button class="info-button" onclick="window.location.href='/'">Go Back</button>
+        document.querySelectorAll('.delete-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const procedure_id = button.getAttribute('data-id');
 
-<script>
-    document.querySelectorAll('.collapsed').forEach(item => {
-        item.addEventListener('click', function () {
-            const expanded = this.nextElementSibling;
-            expanded.style.display = expanded.style.display === 'none' ? 'block' : 'none';
+                fetch('/patient/delete-procedure', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'procedure_id': procedure_id // Отправляем параметр
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        // Перезагружаем страницу или обновляем интерфейс после успешного удаления
+                    })
+                    .catch(error => console.error('Ошибка:', error));
+            });
         });
-    });
-</script>
+
+
+        // Логика для раскрытия/сворачивания предыдущих периодов
+        document.querySelectorAll('.collapsed').forEach(item => {
+            item.addEventListener('click', function () {
+                const expanded = this.nextElementSibling;
+                expanded.style.display = expanded.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
