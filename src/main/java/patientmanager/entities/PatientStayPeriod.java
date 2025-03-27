@@ -40,7 +40,7 @@ public class PatientStayPeriod {
             joinColumns = @JoinColumn(name = "period_id"),
             inverseJoinColumns = @JoinColumn(name = "procedure_id")
     )
-    private List<Procedure> procedures;
+    private List<Procedure> procedures = new ArrayList<>();
 
     @NotNull(message = "Travel voucher is required")
     private  TravelVoucher travelVoucher;
@@ -60,6 +60,14 @@ public class PatientStayPeriod {
 
         prescriptions.add(prescription);
         medicine.decreaseStock(quantity);
+    }
+
+    public void prescribeProcedure(Procedure procedure) {
+        procedures.add(procedure);
+    }
+
+    public void removeProcedure(Procedure procedure) {
+        procedures.remove(procedure);
     }
 
 

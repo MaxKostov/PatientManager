@@ -114,4 +114,8 @@ public class PatientStayPeriodServiceImpl implements PatientStayPeriodService {
 
         return patientStayPeriodRepo.findByFilters(month, voucher, year, active);
     }
+
+    public PatientStayPeriod getPatientStayPeriodById(Long id) {
+        return patientStayPeriodRepo.findById(id).orElse(null);
+    }
 }

@@ -55,14 +55,14 @@
             <div>
                 <label>Procedures:</label>
                 <ul>
-                    <li th:each="prescription : ${lastPatientStayPeriod.prescriptions}">
-                        <span th:text="${prescription.procedure.name}"></span>
+                    <li th:each="procedure : ${lastPatientStayPeriod.procedures}">
+                        <span th:text="${procedure.name}"></span>
                     </li>
                 </ul>
                 <h4 class="add-procedure-span">Add Procedure</h4>
                 <form th:action="@{/patient/submit-procedures}" method="post">
                     <label for="procedure">Select Procedure:</label>
-                    <select name="procedureId" id="procedure">
+                    <select name="procedure_id" id="procedure">
                         <option th:each="procedure : ${procedures}"
                                 th:value="${procedure.id}"
                                 th:text="${procedure.name}">

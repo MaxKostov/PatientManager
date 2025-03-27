@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import patientmanager.entities.Medicine;
 import patientmanager.entities.Patient;
 import patientmanager.entities.PatientStayPeriod;
+import patientmanager.entities.Procedure;
 import patientmanager.services.MedicineService;
 import patientmanager.services.PatientService;
+import patientmanager.services.ProcedureService;
 import patientmanager.services.impl.PatientStayPeriodServiceImpl;
 
 import java.util.List;
@@ -23,12 +25,14 @@ public class PatientInfoController {
     private final PatientService patientService;
     private final PatientStayPeriodServiceImpl patientStayPeriodService;
     private final MedicineService medicineService;
+    private final ProcedureService procedureService;
 
     @Autowired
-    public PatientInfoController(PatientService patientService, PatientStayPeriodServiceImpl patientStayPeriodService, MedicineService medicineService) {
+    public PatientInfoController(PatientService patientService, PatientStayPeriodServiceImpl patientStayPeriodService, MedicineService medicineService, ProcedureService procedureService) {
         this.patientService = patientService;
         this.patientStayPeriodService = patientStayPeriodService;
         this.medicineService = medicineService;
+        this.procedureService = procedureService;
     }
 
     @GetMapping
@@ -51,6 +55,7 @@ public class PatientInfoController {
         Patient patient = patientService.getPatientByPassportId(passportID);
         PatientStayPeriod lastPatientStayPeriod = patient.getLastPeriod();
         List<Medicine> medicines = medicineService.getAllMedicine();
+        List<Procedure> procedures = procedureService.getAllProcedure();
         List<PatientStayPeriod> periodList = patientStayPeriodService.showAllPeriods(passportID);
         if (lastPatientStayPeriod.getDischargeDate() == null) {
             model.addAttribute("lastPatientStayPeriod", lastPatientStayPeriod);
@@ -59,6 +64,7 @@ public class PatientInfoController {
         model.addAttribute("patient", patient);
         model.addAttribute("periodList", periodList.reversed());
         model.addAttribute("medicines", medicines);
+        model.addAttribute("procedures", procedures);
         return "fullPatientInfo";
     }
 
@@ -89,6 +95,22 @@ public class PatientInfoController {
         medicineService.assignMedicineToPatientStayPeriod(medicineId, patientStayPeriod.getId(), quantity);
 
         model.addAttribute("message", "Medicine assigned successfully!");
+        return "redirect:info";
+    }
+
+    @PostMapping("/submit-procedures")
+    public String submitProcedure(@RequestParam int procedure_id, HttpSession session, Model model) {
+        String passportID = (String) session.getAttribute("passportID");
+        PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
+        procedureService.assignProcedureToStayPeriod(procedure_id, patientStayPeriod);
+        return "redirect:info";
+    }
+
+    @PostMapping("/delete-procedure")
+    public String deleteProcedure(@RequestParam int procedure_id, HttpSession session, Model model) {
+        String passportID = (String) session.getAttribute("passportID");
+        PatientStayPeriod patientStayPeriod = patientStayPeriodService.showPatientStayPeriod(passportID);
+        procedureService.removeProcedureFromStayPeriod(procedure_id, patientStayPeriod);
         return "redirect:info";
     }
 }

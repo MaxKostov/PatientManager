@@ -4,8 +4,11 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import patientmanager.data.PatientStayPeriodRepo;
 import patientmanager.data.ProcedureRepo;
+import patientmanager.entities.PatientStayPeriod;
 import patientmanager.entities.Procedure;
+import patientmanager.services.PatientStayPeriodService;
 import patientmanager.services.ProcedureService;
 
 import java.util.List;
@@ -14,10 +17,14 @@ import java.util.Optional;
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
     private final ProcedureRepo procedureRepo;
+    private final PatientStayPeriodService patientStayPeriodService;
+    private final PatientStayPeriodRepo patientStayPeriodRepo;
 
     @Autowired
-    public ProcedureServiceImpl(ProcedureRepo procedureRepo) {
+    public ProcedureServiceImpl(ProcedureRepo procedureRepo, PatientStayPeriodService patientStayPeriodService, PatientStayPeriodRepo patientStayPeriodRepo) {
         this.procedureRepo = procedureRepo;
+        this.patientStayPeriodService = patientStayPeriodService;
+        this.patientStayPeriodRepo = patientStayPeriodRepo;
     }
 
 
@@ -74,5 +81,31 @@ public class ProcedureServiceImpl implements ProcedureService {
     @Override
     public  Procedure getProcedureById(int id) {
         return procedureRepo.findById((long) id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public String assignProcedureToStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod) {
+        Procedure procedure = getProcedureById(procedure_id);
+        if (patientStayPeriod != null && procedure != null) {
+            patientStayPeriod.prescribeProcedure(procedure);
+            patientStayPeriodRepo.save(patientStayPeriod);
+            return "Procedure assigned to stay period " + patientStayPeriod.getId() + " to procedure " + procedure.getName();
+        }
+
+        return procedure_id + " not assigned to procedure " + patientStayPeriod.getId();
+    }
+
+    @Override
+    @Transactional
+    public String removeProcedureFromStayPeriod(int procedure_id, PatientStayPeriod patientStayPeriod) {
+        Procedure procedure = getProcedureById(procedure_id);
+        if (patientStayPeriod != null && procedure != null) {
+            patientStayPeriod.removeProcedure(procedure);
+            patientStayPeriodRepo.save(patientStayPeriod);
+            return "Procedure removed from stay period " + patientStayPeriod.getId() + " to procedure " + procedure.getName();
+        }
+
+        return procedure_id + " not removed from procedure " + patientStayPeriod.getId();
     }
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "procedure")
@@ -25,4 +26,17 @@ public class Procedure {
 
     @ManyToMany(mappedBy = "procedures")
     private List<PatientStayPeriod> patientStayPeriods;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Procedure procedure = (Procedure) o;
+        return id != null && id.equals(procedure.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
