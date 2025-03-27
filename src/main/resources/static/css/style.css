@@ -401,6 +401,8 @@
     color: white;
     transition: background-color 0.3s;
     margin-top: 20px;
+    margin-bottom: 50px;
+
 }
 .add-medicine-span{
     padding: 20px 0;
@@ -735,6 +737,8 @@
     color: white;
     transition: background-color 0.3s;
     margin-top: 20px;
+    margin-bottom: 50px;
+
 }
 
 .patient-details-button:hover {
@@ -859,6 +863,10 @@
 
 .procedures-header img {
     height: 240px;
+}
+
+.add-procedure-span{
+    padding: 20px 0;
 }
 
 .procedure-details-container, .procedures-details-container {
