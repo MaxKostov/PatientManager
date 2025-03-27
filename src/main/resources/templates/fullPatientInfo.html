@@ -68,8 +68,8 @@
                                 th:text="${procedure.name}">
                         </option>
                     </select>
-                    <button class="info-button" type="submit">Add Procedure</button>
                 </form>
+                <button class="info-button" type="submit">Add Procedure</button>
             </div>
             <div>
                 <label>Medicines:</label>
@@ -92,9 +92,9 @@
 
                     <label for="quantity">Quantity:</label>
                     <input type="number" name="quantity" id="quantity" min="1" required />
-
                     <button class="info-button" type="submit">Add Medicine</button>
                 </form>
+
             </div>
 
         </div>
@@ -102,9 +102,6 @@
             <p>No current stay period available.</p>
         </div>
     </div>
-
-
-</div>
 
 <div class="info-details-container">
     <h2>Previous Stay Periods</h2>
@@ -121,6 +118,7 @@
     </div>
 </div>
 
+</div>
 <button class="info-button" onclick="window.location.href='/'">Go Back</button>
 
 <script>
